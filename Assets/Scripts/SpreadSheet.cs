@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Data;
 using UnityEngine;
 
 public class SpreadSheet : MonoBehaviour
@@ -55,8 +54,6 @@ public class SpreadSheet : MonoBehaviour
         }
     }
 
-    public Cell GetCellAt(int row, int col) { return sheet[row, col]; }
-    public Cell GetCellAt(Vector2Int rc) { return GetCellAt(rc.x, rc.y); }
 
     // conversion helpers
     public Vector2 SheetToWorld(Vector2 sheetPos)
