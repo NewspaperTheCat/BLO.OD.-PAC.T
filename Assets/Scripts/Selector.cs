@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.Http.Headers;
@@ -8,32 +9,77 @@ using UnityEngine.UIElements;
 
 public class Selector : MonoBehaviour
 {
+    // Singleton Design Pattern (to a degree)
+    public static Selector inst;
+    void OnEnable()
+    {
+        // ensures there is only ever one Selector
+        if (inst == null)
+        {
+            inst = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+    void OnDisable()
+    {
+        // when disabled (destoryed or scene change) removes this reference from static value
+        inst = null;
+    }
+
     // serialized so can be viewed
     [SerializeField] Vector2Int selected;
+    Vector2Int pivotStart;
+    Vector2Int pivotEnd;
+    RectTransform rt;
 
-    [SerializeField] Vector2Int pivotStart;
-    [SerializeField] Vector2Int pivotEnd;
+    // refernce to be set in editor
+    public RectTransform copyIndicator;
+    Vector2Int copyPivotStart;
+    Vector2Int copyPivotEnd;
+    bool toCut = false;
 
     void Start()
     {
+        copyPivotStart = new Vector2Int(-1, -1); // null value
+        rt = GetComponent<RectTransform>();
         Reset();
     }
 
-    public void Reset() {
+    public void Reset()
+    {
         pivotStart = Vector2Int.zero;
         pivotEnd = Vector2Int.zero;
         SetSelected(0, 0);
+
+        Debug.Log("Initializing copy indicator and hiding it");
+        copyPivotStart = new Vector2Int(-1, -1);
+        copyIndicator.gameObject.SetActive(false);
+    }
+    
+    public void SetSize(Vector2 cellSize)
+    {
+        rt.sizeDelta = cellSize;
+        copyIndicator.sizeDelta = cellSize;
     }
 
     void Update()
     {
+        // control varient handled internally
         if (Input.GetKeyDown(KeyCode.LeftArrow)) { MoveSelected(0, -1); }
         if (Input.GetKeyDown(KeyCode.RightArrow)) { MoveSelected(0, 1); }
         if (Input.GetKeyDown(KeyCode.DownArrow)) { MoveSelected(1, 0); }
         if (Input.GetKeyDown(KeyCode.UpArrow)) { MoveSelected(-1, 0); }
 
-        // DELETE THIS when this component gets fleshed out more
-        // Debug.Log(new Vector2(row, col) + " --> " + SpreadSheet.inst.WorldToSheet(transform.position));
+        if (IsCTRLPressed())
+        {
+            if (Input.GetKeyDown(KeyCode.C)) { MarkCopy(false); }
+            if (Input.GetKeyDown(KeyCode.X)) { MarkCopy(true); }
+            if (Input.GetKeyDown(KeyCode.V)) { Paste(); }
+
+        }
     }
 
     bool IsShiftPressed() { return Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift); }
@@ -79,7 +125,7 @@ public class Selector : MonoBehaviour
         int nc = (c + dim.y) % dim.y;
 
         selected = new Vector2Int(nr, nc);
-        transform.position = (Vector3)SpreadSheet.inst.SheetToWorld(selected) + Vector3.back;
+        rt.anchoredPosition = (Vector3)SpreadSheet.inst.SheetToWorld(selected);
 
         if (IsShiftPressed()) {
             if (nr < pivotStart.x) pivotStart.x = nr;
@@ -102,13 +148,65 @@ public class Selector : MonoBehaviour
             {
                 for (int ch = pivotStart.y; ch <= pivotEnd.y; ch++)
                 {
-                    if (SpreadSheet.inst.GetCellAt(rh, ch) != null)
+                    if (SpreadSheet.inst != null)
                         SpreadSheet.inst.GetCellAt(rh, ch).SetHighlight(false); // flags an error on start up for no apparent reason?? works fine
                 }
             }
 
             pivotStart = selected;
             pivotEnd = selected;
+        }
+    }
+
+    private void MarkCopy(bool toCut)
+    {
+        this.toCut = toCut;
+        copyPivotStart = pivotStart;
+        copyPivotEnd = pivotEnd;
+
+        copyIndicator.gameObject.SetActive(true);
+        //set size to encompass the region
+        Vector2 regDim = new Vector2(copyPivotEnd.y - copyPivotStart.y + 1, copyPivotEnd.x - copyPivotStart.x + 1);
+        copyIndicator.sizeDelta = rt.sizeDelta * regDim;
+        //set position to middle of region
+        copyIndicator.anchoredPosition = SpreadSheet.inst.SheetToWorld(copyPivotStart) + regDim * .5f;
+
+        // if just a 1x1 copy then hide the base selector
+        if (regDim.sqrMagnitude < 1.1f) rt.anchoredPosition = new Vector2(-1000, -1000); // hide it :)
+    }
+    
+    private void Paste()
+    {
+        if (copyPivotStart == new Vector2Int(-1, -1)) return; // do nothing if nothing to copy
+
+        for (int r = copyPivotStart.x; r <= copyPivotEnd.x; r++)
+        {
+            int dr = r - copyPivotStart.x + selected.x;
+            for (int c = copyPivotStart.y; c <= copyPivotEnd.y; c++)
+            {
+                int dy = c - copyPivotStart.y + selected.y;
+
+                // room for optimization
+                if (!SpreadSheet.inst.InBounds(dr, dy)) continue;
+
+                Cell source = SpreadSheet.inst.GetCellAt(r, c);
+                Cell destination = SpreadSheet.inst.GetCellAt(dr, dy);
+                destination.SetBgColor(source.GetBgColor());
+                destination.SetContent(source.GetContent());
+
+                if (toCut) // replace value
+                {
+                    source.SetBgColor(Color.white);
+                    source.SetContent("");
+                }
+            }
+        }
+
+        // nothing left to paste if we just cut
+        if (toCut)
+        {
+            copyPivotStart = new Vector2Int(-1, -1);
+            copyIndicator.gameObject.SetActive(false);
         }
     }
 }

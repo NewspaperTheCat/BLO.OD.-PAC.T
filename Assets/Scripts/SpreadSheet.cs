@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Data;
 using UnityEngine;
 
 public class SpreadSheet : MonoBehaviour
@@ -32,6 +31,7 @@ public class SpreadSheet : MonoBehaviour
 
     // useful reference
     [SerializeField] GameObject CELL_PREFAB; // to be set in editor
+    RectTransform rt;
     private Vector2 screenBounds; // derived from RectTransform
     float CELL_WIDTH = 1; // get set in code, assumes cells are 1x1
     float CELL_HEIGHT = 1;
@@ -39,7 +39,8 @@ public class SpreadSheet : MonoBehaviour
 
     void Start()
     {
-        Rect screen = GetComponent<RectTransform>().rect;
+        rt = GetComponent<RectTransform>();
+        Rect screen = rt.rect;
         screenBounds = new Vector2(screen.width, screen.height);
 
         // Jank stuff so it doesn't crash on first initialization, not a problem past this
@@ -70,6 +71,8 @@ public class SpreadSheet : MonoBehaviour
         CELL_WIDTH = screenBounds.x / (float)(COLS);
         CELL_HEIGHT = screenBounds.y / (float)(ROWS);
 
+        Selector.inst.SetSize(new Vector2(CELL_WIDTH, CELL_HEIGHT));
+
         for (int r = 0; r < ROWS; r++)
         {
             for (int c = 0; c < COLS; c++)
@@ -78,7 +81,7 @@ public class SpreadSheet : MonoBehaviour
                 Cell cell = Instantiate(CELL_PREFAB, transform).GetComponent<Cell>();
                 cell.SetValues(r, c);
                 cell.SetSize(new Vector2(CELL_WIDTH, CELL_HEIGHT));
-                cell.transform.position = SheetToWorld(new Vector2(r, c));
+                cell.GetComponent<RectTransform>().anchoredPosition = SheetToWorld(new Vector2(r, c));
                 sheet[r, c] = cell;
             }
         }
@@ -93,11 +96,10 @@ public class SpreadSheet : MonoBehaviour
     public Vector2 SheetToWorld(Vector2 sheetPos)
     {
         Vector2 local = new Vector2((screenBounds.x - CELL_WIDTH) / (float)(COLS - 1) * sheetPos.y, (screenBounds.y - CELL_HEIGHT) / (float)(ROWS - 1) * -sheetPos.x);
-        return local + (Vector2)transform.position;
+        return local;
     }
     public Vector2 WorldToSheet(Vector2 worldPos)
     {
-        worldPos -= (Vector2)transform.position;
         return new Vector2(-worldPos.y * (float)(ROWS - 1) / (screenBounds.y - CELL_HEIGHT), worldPos.x * (float)(COLS - 1) / (screenBounds.x - CELL_WIDTH));
     }
 
