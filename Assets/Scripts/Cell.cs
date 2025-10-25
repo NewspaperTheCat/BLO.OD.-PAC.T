@@ -9,6 +9,10 @@ using UnityEngine;
 
 public class Cell : MonoBehaviour
 {
+    // Static to be one universal value
+    static Color highlight = new Color(0, 200, 255);
+    bool isHighlighted;
+
     // Lazy game jam coding practice: public parameters
     // cells are organized by (Row, Col) which is spatially (y, x)
     public int row;
@@ -43,5 +47,7 @@ public class Cell : MonoBehaviour
     public String GetContent() { return content; }
     public void SetContent(String content) { this.content = content; contentDisplay.text = content; }
     public Color GetBgColor() { return bgColor; }
-    public void SetBgColor(Color bgColor) { this.bgColor = bgColor; background.color = bgColor; }
+    public void SetBgColor(Color bgColor) { this.bgColor = bgColor; if (isHighlighted) background.color = bgColor * highlight; else background.color = bgColor; }
+
+    public void SetHighlight(bool setTo) { isHighlighted = setTo; SetBgColor(bgColor); }
 }
