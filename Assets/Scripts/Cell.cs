@@ -13,7 +13,7 @@ public class Cell : MonoBehaviour
     // cells are organized by (Row, Col) which is spatially (y, x)
     public int row;
     public int col;
-    Maxwell maxwell;
+    // Maxwell maxwell;
     
 
     // private because must change stuff on set
@@ -46,14 +46,14 @@ public class Cell : MonoBehaviour
     public void SetContent(String content) { this.content = content; contentDisplay.text = content; int maxwellOdds = UnityEngine.Random.Range(0, 5);
         if (maxwellOdds == 0)
         {
-            maxwell.summonMaxwell();
+            // maxwell.summonMaxwell("text");
         }
     }
     public Color GetBgColor() { return bgColor; }
     public void SetBgColor(Color bgColor) { this.bgColor = bgColor; background.color = bgColor; int maxwellOdds = UnityEngine.Random.Range(0, 5);
         if (maxwellOdds == 0)
         {
-            maxwell.summonMaxwell();
+            // maxwell.summonMaxwell("color");
         }
     }
 }

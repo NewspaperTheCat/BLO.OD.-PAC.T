@@ -30,14 +30,14 @@ public class Maxwell : MonoBehaviour
         if (option == "color")
         {
             //change color of random cell
-            SpreadSheet.inst.GetCellAt(new Vector2Int(x, y)).SetBgColor(Color.red);
+            // SpreadSheet.inst.GetCellAt(new Vector2Int(x, y)).SetBgColor(Color.red);
 
         }
 
         else 
         {
             //change text of random cell
-            SpreadSheet.inst.GetCellAt(x, y).SetContent("Hello");
+            // SpreadSheet.inst.GetCellAt(x, y).SetContent("Hello");
         }
     }
 }
