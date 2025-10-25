@@ -845,8 +845,6 @@ MonoBehaviour:
   ROWS: 10
   COLS: 8
   CELL_PREFAB: {fileID: 7336998219485138230, guid: f419d69de6635af48be61f5a55e44256, type: 3}
-  CELL_WIDTH: 1
-  CELL_HEIGHT: 0.5
 --- !u!4 &1968536193
 Transform:
   m_ObjectHideFlags: 0
@@ -869,7 +867,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1968536191}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:

@@ -20,6 +20,7 @@ public class Cell : MonoBehaviour
 
     // private because must change stuff on set
     private String content;
+    [SerializeField] Canvas contentCanvas;
     [SerializeField] TMP_Text contentDisplay;
     private Color bgColor;
     [SerializeField] SpriteRenderer background;
@@ -50,4 +51,12 @@ public class Cell : MonoBehaviour
     public void SetBgColor(Color bgColor) { this.bgColor = bgColor; if (isHighlighted) background.color = bgColor * highlight; else background.color = bgColor; }
 
     public void SetHighlight(bool setTo) { isHighlighted = setTo; SetBgColor(bgColor); }
+
+    public void SetSize(Vector2 size)
+    {
+        float cellMargin = .05f;
+        background.transform.localScale = size - Vector2.one * cellMargin;
+        background.transform.localPosition = (size + Vector2.one * cellMargin) * .5f;
+        background.transform.localPosition = new Vector2(background.transform.localPosition.x, -1 * background.transform.localPosition.y);
+    }
 }

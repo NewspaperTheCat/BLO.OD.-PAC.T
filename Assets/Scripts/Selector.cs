@@ -37,20 +37,49 @@ public class Selector : MonoBehaviour
     }
 
     bool IsShiftPressed() { return Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift); }
-    
+    bool IsCTRLPressed() { return Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl); }
+
     // deals with update world position as well
-    void MoveSelected(int dr, int dc) {
-        SetSelected(dr + selected.x, dc + selected.y);
+    void MoveSelected(int dr, int dc)
+    {
+        if (Input.GetKey(KeyCode.LeftControl)) {
+            // if control then move via continuity
+            SetSelected(GetNextContinuityEnd(selected, new Vector2Int(dr, dc)));
+        } else {
+            SetSelected(dr + selected.x, dc + selected.y);
+        }
     }
+    
+    Vector2Int GetNextContinuityEnd(Vector2Int start, Vector2Int dir)
+    {
+        bool continuityBlank = SpreadSheet.inst.GetCellAt(start).GetContent() == "";
+
+        Vector2Int nullEnd = new Vector2Int(-1, -1);
+        Vector2Int foundEnd = nullEnd;
+        while (foundEnd == nullEnd)
+        {
+            Vector2Int next = start + dir;
+            if (!SpreadSheet.inst.InBounds(next)) { foundEnd = start; continue; } // exits when reach edge
+
+            bool nextContinuity = SpreadSheet.inst.GetCellAt(next).GetContent() == "";
+            if (nextContinuity != continuityBlank) { foundEnd = next; continue; }
+
+            // progress scanner
+            start = next;
+        }
+
+        return foundEnd;
+    }
+
+    void SetSelected(Vector2Int rc) { SetSelected(rc.x, rc.y); }
     void SetSelected(int r, int c)
     {
-        Vector2Int dim = SpreadSheet.inst.GetArrayDimensions();
-        Vector2Int init = new Vector2Int(selected.x, selected.y);
+        Vector2Int dim = SpreadSheet.inst.GetSheetDimensions();
         int nr = (r + dim.x) % dim.x;
         int nc = (c + dim.y) % dim.y;
 
         selected = new Vector2Int(nr, nc);
-        transform.position = SpreadSheet.inst.SheetToWorld(selected);
+        transform.position = (Vector3)SpreadSheet.inst.SheetToWorld(selected) + Vector3.back;
 
         if (IsShiftPressed()) {
             if (nr < pivotStart.x) pivotStart.x = nr;
@@ -73,7 +102,8 @@ public class Selector : MonoBehaviour
             {
                 for (int ch = pivotStart.y; ch <= pivotEnd.y; ch++)
                 {
-                    SpreadSheet.inst.GetCellAt(rh, ch).SetHighlight(false); // flags an error on start up for no apparent reason?? works fine
+                    if (SpreadSheet.inst.GetCellAt(rh, ch) != null)
+                        SpreadSheet.inst.GetCellAt(rh, ch).SetHighlight(false); // flags an error on start up for no apparent reason?? works fine
                 }
             }
 
