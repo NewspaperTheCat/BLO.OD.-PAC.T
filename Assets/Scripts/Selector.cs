@@ -255,17 +255,11 @@ public class Selector : MonoBehaviour
     {
         // Lazy solution to pivots (used by excel)
         DisableCopy();
-        SetHighlights(false);
-        pivotStart = selected;
-        pivotEnd = selected;
-
-        // force highlight column
-        HighlightColumn();
 
         Vector2Int dim = SpreadSheet.inst.GetSheetDimensions();
         for (int c = selected.y; c < dim.y; c++)
         {
-            for (int r = 0; r < dim.x; r++)
+            for (int r = pivotStart.x; r <= pivotEnd.x; r++)
             {
                 Cell cell = SpreadSheet.inst.GetCellAt(r, c);
 
@@ -289,17 +283,11 @@ public class Selector : MonoBehaviour
     {
          // Lazy solution to pivots (used by excel)
         DisableCopy();
-        SetHighlights(false);
-        pivotStart = selected;
-        pivotEnd = selected;
-
-        // force highlight column
-        HighlightColumn();
 
         Vector2Int dim = SpreadSheet.inst.GetSheetDimensions();
         for (int c = dim.y - 1; c >= selected.y; c--)
         {
-            for (int r = 0; r < dim.x; r++)
+            for (int r = pivotStart.x; r <= pivotEnd.x; r++)
             {
                 Cell cell = SpreadSheet.inst.GetCellAt(r, c);
 
@@ -333,17 +321,11 @@ public class Selector : MonoBehaviour
     {
         // Lazy solution to pivots (used by excel)
         DisableCopy();
-        SetHighlights(false);
-        pivotStart = selected;
-        pivotEnd = selected;
-
-        // force highlight row
-        HighlightRow();
 
         Vector2Int dim = SpreadSheet.inst.GetSheetDimensions();
         for (int r = selected.x; r < dim.x; r++)
         {
-            for (int c = 0; c < dim.y; c++)
+            for (int c = pivotStart.y; c <= pivotEnd.y; c++)
             {
                 Cell cell = SpreadSheet.inst.GetCellAt(r, c);
 
@@ -367,17 +349,11 @@ public class Selector : MonoBehaviour
     {
         // Lazy solution to pivots (used by excel)
         DisableCopy();
-        SetHighlights(false);
-        pivotStart = selected;
-        pivotEnd = selected;
-
-        // force highlight row
-        HighlightRow();
 
         Vector2Int dim = SpreadSheet.inst.GetSheetDimensions();
         for (int r = dim.x - 1; r >= selected.x; r--)
         {
-            for (int c = 0; c < dim.y; c++)
+            for (int c = pivotStart.y; c <= pivotEnd.y; c++)
             {
                 Cell cell = SpreadSheet.inst.GetCellAt(r, c);
 
