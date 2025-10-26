@@ -1,15 +1,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using static UnityEngine.Rendering.DebugUI.Table;
 
+
 public class Maxwell : MonoBehaviour
 {
     Vector2Int dimensions;
-    public Text dialogueBox;
+    [SerializeField] private TextMeshProUGUI dialogueBox;
     public Sprite textBubble;
     Boolean textBubbleActive = false;
     public Sprite maxwellPfp;
@@ -47,10 +49,10 @@ public class Maxwell : MonoBehaviour
     {
         dimensions = SpreadSheet.inst.GetSheetDimensions();
 
-        // readText(flavor, "f");
-        // readText(color, "c");
-        // readText(text, "t");
-        // readText(solution, "s");
+         readText(flavor, "f");
+         readText(color, "c");
+         readText(text, "t");
+         readText(solution, "s");
     }
 
     // Update is called once per frame
