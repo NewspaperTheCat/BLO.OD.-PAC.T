@@ -209,26 +209,39 @@ public class Selector : MonoBehaviour
     {
         if (copyPivotStart == new Vector2Int(-1, -1)) return; // do nothing if nothing to copy
 
+        Vector2Int areaDim = copyPivotEnd - copyPivotStart + Vector2Int.one;
+        Color[,] colors = new Color[areaDim.x, areaDim.y];
+        String[,] contents = new String[areaDim.x, areaDim.y];
+
         for (int r = copyPivotStart.x; r <= copyPivotEnd.x; r++)
         {
-            int dr = r - copyPivotStart.x + selected.x;
             for (int c = copyPivotStart.y; c <= copyPivotEnd.y; c++)
             {
-                int dy = c - copyPivotStart.y + selected.y;
-
-                // room for optimization
-                if (!SpreadSheet.inst.InBounds(dr, dy)) continue;
-
                 Cell source = SpreadSheet.inst.GetCellAt(r, c);
-                Cell destination = SpreadSheet.inst.GetCellAt(dr, dy);
-                destination.SetBgColor(source.GetBgColor());
-                destination.SetContent(source.GetContent());
+                colors[r, c] = source.GetBgColor();
+                contents[r, c] = source.GetContent();
 
                 if (toCut) // replace value
                 {
                     source.SetBgColor(Color.white);
                     source.SetContent("");
                 }
+            }
+        }
+
+        for (int r = 0; r < areaDim.x; r++)
+        {
+            int dr = selected.x + r;
+            for (int c = 0; c < areaDim.y; c++)
+            {
+                int dy = selected.y + c;
+
+                // room for optimization
+                if (!SpreadSheet.inst.InBounds(dr, dy)) continue;
+
+                Cell destination = SpreadSheet.inst.GetCellAt(dr, dy);
+                destination.SetBgColor(colors[r, c]);
+                destination.SetContent(contents[r, c]);
             }
         }
 
