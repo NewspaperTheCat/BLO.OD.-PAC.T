@@ -66,6 +66,11 @@ public class Selector : MonoBehaviour
         copyIndicator.sizeDelta = cellSize;
     }
 
+    public Cell GetHover()
+    {
+        return SpreadSheet.inst.GetCellAt(selected);
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.LeftControl)) { AudioManager.inst.PlayRandomKeyPress(); }
@@ -218,6 +223,7 @@ public class Selector : MonoBehaviour
             for (int c = copyPivotStart.y; c <= copyPivotEnd.y; c++)
             {
                 Cell source = SpreadSheet.inst.GetCellAt(r, c);
+
                 colors[r - copyPivotStart.x, c - copyPivotStart.y] = source.GetBgColor();
                 contents[r - copyPivotStart.x, c - copyPivotStart.y] = source.GetContent();
 
@@ -240,6 +246,10 @@ public class Selector : MonoBehaviour
                 if (!SpreadSheet.inst.InBounds(dr, dy)) continue;
 
                 Cell destination = SpreadSheet.inst.GetCellAt(dr, dy);
+
+                // check if this paste will complete the level
+                LevelManager.Instance.CheckReplace(colors[r, c], contents[r, c], destination.GetBgColor(), destination.GetContent());
+
                 destination.SetBgColor(colors[r, c]);
                 destination.SetContent(contents[r, c]);
             }

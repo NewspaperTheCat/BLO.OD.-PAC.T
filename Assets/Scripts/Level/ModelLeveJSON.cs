@@ -9,7 +9,7 @@ namespace ModelLevelJSON
     {
         public int level { get; set;}
         public string description { get; set;}
-        public RequirementsJSON[] requirements { get; set;}
+        public RequirementsJSON requirements { get; set;}
 
         public int[] boardSize { get; set;}
         public CellJSON[] cells { get; set;}
@@ -25,8 +25,16 @@ namespace ModelLevelJSON
 
     public class RequirementsJSON
     {
-        public string[] hoverover { get; set;}
-        public string[] nocolor { get; set;}
-        public string[] replace { get; set;}
+        public string[][] hoverover { get; set; } // { ["Value", "Color"], ["Value", "Color"], ["Value", "Color"], ... }
+        public string[][] nocolor { get; set; } // { ["Value", "Color"], ["Value", "Color"], ["Value", "Color"], ... }
+        public string[][] replace { get; set; } // { ["Value", "Color", "Value", "Color"], ["Value", "Color", "Value", "Color"], ... }        
+        public AnswerKeyJSON answerKey;
+    }
+    
+    public class AnswerKeyJSON
+    {
+        public int[] regionStart;
+        public int[] regionEnd;
+        public CellJSON[] cells;
     }
 }
