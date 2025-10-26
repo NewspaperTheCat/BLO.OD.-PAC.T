@@ -1,0 +1,63 @@
+{
+  "level": 14,
+  "boardSize": [
+    12,
+    10
+  ],
+  "cells": [
+    {
+      "row": 9,
+      "column": 1,
+      "value": null,
+      "file_color": "FFFF0000"
+    },
+    {
+      "row": 9,
+      "column": 2,
+      "value": null,
+      "file_color": "FFFF0000"
+    },
+    {
+      "row": 9,
+      "column": 3,
+      "value": null,
+      "file_color": "FFFF0000"
+    },
+    {
+      "row": 10,
+      "column": 1,
+      "value": null,
+      "file_color": "FFFF0000"
+    },
+    {
+      "row": 10,
+      "column": 2,
+      "value": null,
+      "file_color": "FFFF0000"
+    },
+    {
+      "row": 10,
+      "column": 3,
+      "value": null,
+      "file_color": "FFFF0000"
+    },
+    {
+      "row": 11,
+      "column": 1,
+      "value": null,
+      "file_color": "FFFF0000"
+    },
+    {
+      "row": 11,
+      "column": 2,
+      "value": null,
+      "file_color": "FFFF0000"
+    },
+    {
+      "row": 11,
+      "column": 3,
+      "value": null,
+      "file_color": "FFFF0000"
+    }
+  ]
+}

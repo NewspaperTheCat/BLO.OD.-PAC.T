@@ -1,0 +1,15 @@
+{
+  "level": 6,
+  "boardSize": [
+    12,
+    10
+  ],
+  "cells": [
+    {
+      "row": 1,
+      "column": 1,
+      "value": "Maxwell",
+      "file_color": "00000000"
+    }
+  ]
+}
