@@ -259,6 +259,9 @@ public class Selector : MonoBehaviour
         pivotStart = selected;
         pivotEnd = selected;
 
+        // force highlight column
+        HighlightColumn();
+
         Vector2Int dim = SpreadSheet.inst.GetSheetDimensions();
         for (int c = selected.y; c < dim.y; c++)
         {
@@ -284,7 +287,36 @@ public class Selector : MonoBehaviour
 
     private void InsertColumn()
     {
+         // Lazy solution to pivots (used by excel)
+        DisableCopy();
+        SetHighlights(false);
+        pivotStart = selected;
+        pivotEnd = selected;
 
+        // force highlight column
+        HighlightColumn();
+
+        Vector2Int dim = SpreadSheet.inst.GetSheetDimensions();
+        for (int c = dim.y - 1; c >= selected.y; c--)
+        {
+            for (int r = 0; r < dim.x; r++)
+            {
+                Cell cell = SpreadSheet.inst.GetCellAt(r, c);
+
+                Vector2Int next = new Vector2Int(r, c - 1);
+                if (c != selected.y)
+                {
+                    Cell nextCell = SpreadSheet.inst.GetCellAt(next);
+                    cell.SetBgColor(nextCell.GetBgColor());
+                    cell.SetContent(nextCell.GetContent());
+                }
+                else
+                {
+                    cell.SetBgColor(Color.white);
+                    cell.SetContent("");
+                }
+            }
+        }
     }
 
     private void HighlightRow()
@@ -299,11 +331,69 @@ public class Selector : MonoBehaviour
 
     private void DeleteRow()
     {
+        // Lazy solution to pivots (used by excel)
+        DisableCopy();
+        SetHighlights(false);
+        pivotStart = selected;
+        pivotEnd = selected;
 
+        // force highlight row
+        HighlightRow();
+
+        Vector2Int dim = SpreadSheet.inst.GetSheetDimensions();
+        for (int r = selected.x; r < dim.x; r++)
+        {
+            for (int c = 0; c < dim.y; c++)
+            {
+                Cell cell = SpreadSheet.inst.GetCellAt(r, c);
+
+                Vector2Int next = new Vector2Int(r + 1, c);
+                if (SpreadSheet.inst.InBounds(next))
+                {
+                    Cell nextCell = SpreadSheet.inst.GetCellAt(next);
+                    cell.SetBgColor(nextCell.GetBgColor());
+                    cell.SetContent(nextCell.GetContent());
+                }
+                else
+                {
+                    cell.SetBgColor(Color.white);
+                    cell.SetContent("");
+                }
+            }
+        }
     }
 
     private void InsertRow()
     {
+        // Lazy solution to pivots (used by excel)
+        DisableCopy();
+        SetHighlights(false);
+        pivotStart = selected;
+        pivotEnd = selected;
 
+        // force highlight row
+        HighlightRow();
+
+        Vector2Int dim = SpreadSheet.inst.GetSheetDimensions();
+        for (int r = dim.x - 1; r >= selected.x; r--)
+        {
+            for (int c = 0; c < dim.y; c++)
+            {
+                Cell cell = SpreadSheet.inst.GetCellAt(r, c);
+
+                Vector2Int next = new Vector2Int(r - 1, c);
+                if (r != selected.x)
+                {
+                    Cell nextCell = SpreadSheet.inst.GetCellAt(next);
+                    cell.SetBgColor(nextCell.GetBgColor());
+                    cell.SetContent(nextCell.GetContent());
+                }
+                else
+                {
+                    cell.SetBgColor(Color.white);
+                    cell.SetContent("");
+                }
+            }
+        }
     }
 }
