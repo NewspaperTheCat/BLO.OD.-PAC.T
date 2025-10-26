@@ -1,5 +1,6 @@
 {
   "level": 13,
+  "description": "Make a blue rectangle",
   "boardSize": [
     12,
     10

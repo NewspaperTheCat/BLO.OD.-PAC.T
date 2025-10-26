@@ -1,5 +1,6 @@
 {
   "level": 5,
+  "description": "Delete the yellow cells without deleting the red cells",
   "boardSize": [
     12,
     10

@@ -21,6 +21,7 @@ sheet = wb.active
 
 levels = []
 levelsBoardSize = []
+levelsDescription = []
 
 for i in range(len(wb.sheetnames)):
  
@@ -64,6 +65,11 @@ for i in range(len(wb.sheetnames)):
                     continue
                 else:
                     max_row = cell.row - 1
+                    descriptionCell = sheet.cell(cell.row + 1, 1)
+                    if(descriptionCell.value != None):
+                        levelsDescription.append({"description": descriptionCell.value})
+                    else:
+                        raise FileNotFoundError(f"Level Description Not Found on page {i+1}!")
                     break
 
             if cell.value != None or fill_color != '00000000':
@@ -82,7 +88,7 @@ for i in range(len(wb.sheetnames)):
 for i in range(len(wb.sheetnames)):
     output_file = os.path.join(folder_path, f"brilliantLevel{i + 1}.json")
     with open(output_file, "w", encoding="utf-8") as f:
-        json.dump({"level": i + 1, **levelsBoardSize[i], **levels[i]}, f, indent=2, ensure_ascii=False)
+        json.dump({"level": i + 1,**levelsDescription[i], **levelsBoardSize[i], **levels[i]}, f, indent=2, ensure_ascii=False)
         if(i == 0):
             print(levels[i])
 

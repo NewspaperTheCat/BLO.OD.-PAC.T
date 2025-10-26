@@ -1,5 +1,6 @@
 {
   "level": 9,
+  "description": "Navigate from the start of the x's to the end. Stay on the path.",
   "boardSize": [
     12,
     10
