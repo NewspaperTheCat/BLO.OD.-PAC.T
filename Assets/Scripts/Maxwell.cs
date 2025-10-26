@@ -8,7 +8,7 @@ using static UnityEngine.Rendering.DebugUI.Table;
 
 public class Maxwell : MonoBehaviour
 {
-    Vector2Int dimensions = SpreadSheet.inst.GetArrayDimensions();
+    Vector2Int dimensions = SpreadSheet.inst.GetSheetDimensions();
     public Text dialogueBox;
     public Sprite textBubble;
     Boolean textBubbleActive = false;
