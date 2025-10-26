@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 // more organized data structure of a cell
 // spreadsheet contains a 2d array of these
@@ -20,10 +21,10 @@ public class Cell : MonoBehaviour
     public int col;
 
     // private because must change stuff on set
-    private String content;
+    [SerializeField] String content;
     [SerializeField] TMP_Text contentDisplay;
     private Color bgColor;
-    [SerializeField] SpriteRenderer background;
+    [SerializeField] Image background;
 
     // default constructor
     public void SetValues(int row, int col)
@@ -65,4 +66,11 @@ public class Cell : MonoBehaviour
     }
 
     public void SetHighlight(bool setTo) { isHighlighted = setTo; SetBgColor(bgColor); }
+
+    public void SetSize(Vector2 size)
+    {
+        float cellMargin = 0;
+        RectTransform rt = GetComponent<RectTransform>();
+        rt.sizeDelta = size - Vector2.one * cellMargin;
+    }
 }

@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Data;
 using UnityEngine;
 
 public class SpreadSheet : MonoBehaviour
@@ -32,16 +31,48 @@ public class SpreadSheet : MonoBehaviour
 
     // useful reference
     [SerializeField] GameObject CELL_PREFAB; // to be set in editor
-    private Vector2 screenBounds; // this references the box collider to have visuals in editor when mapping the screen
-    [SerializeField] float CELL_WIDTH = 1;
-    [SerializeField] float CELL_HEIGHT = .5f;
+    RectTransform rt;
+    private Vector2 screenBounds; // derived from RectTransform
+    float CELL_WIDTH = 1; // get set in code, assumes cells are 1x1
+    float CELL_HEIGHT = 1;
 
 
     void Start()
     {
-        screenBounds = GetComponent<BoxCollider2D>().size;
+        rt = GetComponent<RectTransform>();
+        Rect screen = rt.rect;
+        screenBounds = new Vector2(screen.width, screen.height);
 
+        // Jank stuff so it doesn't crash on first initialization, not a problem past this
+        int r = ROWS;
+        int c = COLS;
+        ROWS = 0; COLS = 0;
+        CreateGrid(r, c);
+    }
+
+    void CreateGrid(int newRows, int newCols)
+    {
+        // delete any existing
+        for (int r = 0; r < ROWS; r++)
+        {
+            for (int c = 0; c < COLS; c++)
+            {
+                // delete old
+                Destroy(sheet[r, c].gameObject);
+            }
+        }
+
+        // set to new dimensions
+        ROWS = newRows;
+        COLS = newCols;
         sheet = new Cell[ROWS, COLS];
+
+        // calculate cell size
+        CELL_WIDTH = screenBounds.x / (float)(COLS);
+        CELL_HEIGHT = screenBounds.y / (float)(ROWS);
+
+        Selector.inst.SetSize(new Vector2(CELL_WIDTH, CELL_HEIGHT));
+
         for (int r = 0; r < ROWS; r++)
         {
             for (int c = 0; c < COLS; c++)
@@ -49,12 +80,15 @@ public class SpreadSheet : MonoBehaviour
                 // constructs initially
                 Cell cell = Instantiate(CELL_PREFAB, transform).GetComponent<Cell>();
                 cell.SetValues(r, c);
-                cell.transform.position = SheetToWorld(new Vector2(r, c));
+                cell.SetSize(new Vector2(CELL_WIDTH, CELL_HEIGHT));
+                cell.GetComponent<RectTransform>().anchoredPosition = SheetToWorld(new Vector2(r, c));
                 sheet[r, c] = cell;
             }
         }
     }
 
+    public bool InBounds(int r, int c) { return r >= 0 && c >= 0 && r < ROWS && c < COLS; }
+    public bool InBounds(Vector2Int rc) { return InBounds(rc.x, rc.y); }
     public Cell GetCellAt(int row, int col) { return sheet[row, col]; }
     public Cell GetCellAt(Vector2Int rc) { return GetCellAt(rc.x, rc.y); }
 
@@ -62,14 +96,13 @@ public class SpreadSheet : MonoBehaviour
     public Vector2 SheetToWorld(Vector2 sheetPos)
     {
         Vector2 local = new Vector2((screenBounds.x - CELL_WIDTH) / (float)(COLS - 1) * sheetPos.y, (screenBounds.y - CELL_HEIGHT) / (float)(ROWS - 1) * -sheetPos.x);
-        return local + (Vector2)transform.position;
+        return local;
     }
     public Vector2 WorldToSheet(Vector2 worldPos)
     {
-        worldPos -= (Vector2)transform.position;
         return new Vector2(-worldPos.y * (float)(ROWS - 1) / (screenBounds.y - CELL_HEIGHT), worldPos.x * (float)(COLS - 1) / (screenBounds.x - CELL_WIDTH));
     }
 
-    public Vector2Int GetArrayDimensions() { return new Vector2Int(ROWS, COLS); }
+    public Vector2Int GetSheetDimensions() { return new Vector2Int(ROWS, COLS); }
 
 }

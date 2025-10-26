@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.Http.Headers;
@@ -6,79 +7,303 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+// contains all player input logic
+
 public class Selector : MonoBehaviour
 {
+    // Singleton Design Pattern (to a degree)
+    public static Selector inst;
+    void OnEnable()
+    {
+        // ensures there is only ever one Selector
+        if (inst == null)
+        {
+            inst = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+    void OnDisable()
+    {
+        // when disabled (destoryed or scene change) removes this reference from static value
+        inst = null;
+    }
+
     // serialized so can be viewed
     [SerializeField] Vector2Int selected;
+    Vector2Int pivotStart;
+    Vector2Int pivotEnd;
+    RectTransform rt;
 
-    [SerializeField] Vector2Int pivotStart;
-    [SerializeField] Vector2Int pivotEnd;
+    // refernce to be set in editor
+    public RectTransform copyIndicator;
+    Vector2Int copyPivotStart;
+    Vector2Int copyPivotEnd;
+    bool toCut = false;
 
     void Start()
     {
+        copyPivotStart = new Vector2Int(-1, -1); // null value
+        rt = GetComponent<RectTransform>();
         Reset();
     }
 
-    public void Reset() {
-        pivotStart = Vector2Int.zero;
+    public void Reset()
+    {
+        // weird stuff so it doesn't try to access stuff that doesn't exist
+        pivotStart = Vector2Int.one;
         pivotEnd = Vector2Int.zero;
         SetSelected(0, 0);
+
+        copyPivotStart = new Vector2Int(-1, -1);
+        copyIndicator.gameObject.SetActive(false);
+    }
+
+    public void SetSize(Vector2 cellSize)
+    {
+        rt.sizeDelta = cellSize;
+        copyIndicator.sizeDelta = cellSize;
     }
 
     void Update()
     {
+        // control varient handled internally
         if (Input.GetKeyDown(KeyCode.LeftArrow)) { MoveSelected(0, -1); }
         if (Input.GetKeyDown(KeyCode.RightArrow)) { MoveSelected(0, 1); }
         if (Input.GetKeyDown(KeyCode.DownArrow)) { MoveSelected(1, 0); }
         if (Input.GetKeyDown(KeyCode.UpArrow)) { MoveSelected(-1, 0); }
 
-        // DELETE THIS when this component gets fleshed out more
-        // Debug.Log(new Vector2(row, col) + " --> " + SpreadSheet.inst.WorldToSheet(transform.position));
+        if (IsCTRLPressed())
+        {
+            if (Input.GetKeyDown(KeyCode.C)) { MarkCopy(false); }
+            if (Input.GetKeyDown(KeyCode.X)) { MarkCopy(true); }
+            if (Input.GetKeyDown(KeyCode.V)) { Paste(); }
+            if (Input.GetKeyDown(KeyCode.A)) { SelectAll(); }
+
+            // Column Operations
+            if (Input.GetKeyDown(KeyCode.Space)) { HighlightColumn(); }
+            if (Input.GetKeyDown(KeyCode.Minus)) { DeleteColumn(); }
+            if (Input.GetKeyDown(KeyCode.Equals)) { InsertColumn(); }
+        }
+
+        if (IsShiftPressed())
+        {
+            // Row Operations
+            if (Input.GetKeyDown(KeyCode.Space)) { HighlightRow(); }
+            if (Input.GetKeyDown(KeyCode.Minus)) { DeleteRow(); }
+            if (Input.GetKeyDown(KeyCode.Equals)) { InsertRow(); }
+        }
     }
 
     bool IsShiftPressed() { return Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift); }
-    
+    bool IsCTRLPressed() { return Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl); }
+
     // deals with update world position as well
-    void MoveSelected(int dr, int dc) {
-        SetSelected(dr + selected.x, dc + selected.y);
+    void MoveSelected(int dr, int dc)
+    {
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+            // if control then move via continuity
+            SetSelected(GetNextContinuityEnd(selected, new Vector2Int(dr, dc)));
+        }
+        else
+        {
+            SetSelected(dr + selected.x, dc + selected.y);
+        }
     }
+
+    Vector2Int GetNextContinuityEnd(Vector2Int start, Vector2Int dir)
+    {
+        bool continuityBlank = SpreadSheet.inst.GetCellAt(start).GetContent() == "";
+
+        Vector2Int nullEnd = new Vector2Int(-1, -1);
+        Vector2Int foundEnd = nullEnd;
+        while (foundEnd == nullEnd)
+        {
+            Vector2Int next = start + dir;
+            if (!SpreadSheet.inst.InBounds(next)) { foundEnd = start; continue; } // exits when reach edge
+
+            bool nextContinuity = SpreadSheet.inst.GetCellAt(next).GetContent() == "";
+            if (nextContinuity != continuityBlank) { foundEnd = next; continue; }
+
+            // progress scanner
+            start = next;
+        }
+
+        return foundEnd;
+    }
+
+    void SetSelected(Vector2Int rc) { SetSelected(rc.x, rc.y); }
     void SetSelected(int r, int c)
     {
-        Vector2Int dim = SpreadSheet.inst.GetArrayDimensions();
-        Vector2Int init = new Vector2Int(selected.x, selected.y);
+        Vector2Int dim = SpreadSheet.inst.GetSheetDimensions();
         int nr = (r + dim.x) % dim.x;
         int nc = (c + dim.y) % dim.y;
 
         selected = new Vector2Int(nr, nc);
-        transform.position = SpreadSheet.inst.SheetToWorld(selected);
+        rt.anchoredPosition = (Vector3)SpreadSheet.inst.SheetToWorld(selected);
 
-        if (IsShiftPressed()) {
+        if (IsShiftPressed())
+        {
             if (nr < pivotStart.x) pivotStart.x = nr;
             else if (nc < pivotStart.y) pivotStart.y = nc;
             else if (nr > pivotEnd.x) pivotEnd.x = nr;
             else if (nc > pivotEnd.y) pivotEnd.y = nc;
-            
+
             // update highlights
-            for (int rh = pivotStart.x; rh <= pivotEnd.x; rh++)
-            {
-                for (int ch = pivotStart.y; ch <= pivotEnd.y; ch++)
-                {
-                    SpreadSheet.inst.GetCellAt(rh, ch).SetHighlight(true);
-                }
-            }
-            SpreadSheet.inst.GetCellAt(nr, nc).SetHighlight(false);
-        } else {
+            SetHighlights(true);
+        }
+        else
+        {
             // set any previously highlighted to false
-            for (int rh = pivotStart.x; rh <= pivotEnd.x; rh++)
-            {
-                for (int ch = pivotStart.y; ch <= pivotEnd.y; ch++)
-                {
-                    SpreadSheet.inst.GetCellAt(rh, ch).SetHighlight(false); // flags an error on start up for no apparent reason?? works fine
-                }
-            }
+            SetHighlights(false);
 
             pivotStart = selected;
             pivotEnd = selected;
         }
+    }
+
+    private void SetHighlights(bool setTo)
+    {
+        // set any previously highlighted to false
+        for (int rh = pivotStart.x; rh <= pivotEnd.x; rh++)
+        {
+            for (int ch = pivotStart.y; ch <= pivotEnd.y; ch++)
+            {
+                SpreadSheet.inst.GetCellAt(rh, ch).SetHighlight(setTo); // flags an error on start up for no apparent reason?? works fine
+            }
+        }
+    }
+
+    private void MarkCopy(bool toCut)
+    {
+        this.toCut = toCut;
+        copyPivotStart = pivotStart;
+        copyPivotEnd = pivotEnd;
+
+        copyIndicator.gameObject.SetActive(true);
+        //set size to encompass the region
+        Vector2 regDim = new Vector2(copyPivotEnd.y - copyPivotStart.y + 1, copyPivotEnd.x - copyPivotStart.x + 1);
+        copyIndicator.sizeDelta = rt.sizeDelta * regDim;
+        //set position to middle of region
+        copyIndicator.anchoredPosition = SpreadSheet.inst.SheetToWorld(copyPivotStart) + regDim * .5f;
+
+        // if just a 1x1 copy then hide the base selector
+        if (regDim.sqrMagnitude < 1.1f) rt.anchoredPosition = new Vector2(-1000, -1000); // hide it :)
+    }
+
+    private void DisableCopy()
+    {
+        copyPivotStart = new Vector2Int(-1, -1);
+        copyIndicator.gameObject.SetActive(false);
+    }
+
+    private void Paste()
+    {
+        if (copyPivotStart == new Vector2Int(-1, -1)) return; // do nothing if nothing to copy
+
+        for (int r = copyPivotStart.x; r <= copyPivotEnd.x; r++)
+        {
+            int dr = r - copyPivotStart.x + selected.x;
+            for (int c = copyPivotStart.y; c <= copyPivotEnd.y; c++)
+            {
+                int dy = c - copyPivotStart.y + selected.y;
+
+                // room for optimization
+                if (!SpreadSheet.inst.InBounds(dr, dy)) continue;
+
+                Cell source = SpreadSheet.inst.GetCellAt(r, c);
+                Cell destination = SpreadSheet.inst.GetCellAt(dr, dy);
+                destination.SetBgColor(source.GetBgColor());
+                destination.SetContent(source.GetContent());
+
+                if (toCut) // replace value
+                {
+                    source.SetBgColor(Color.white);
+                    source.SetContent("");
+                }
+            }
+        }
+
+        // nothing left to paste if we just cut
+        if (toCut)
+        {
+            DisableCopy();
+        }
+    }
+
+    private void SelectAll()
+    {
+        pivotStart = Vector2Int.zero;
+        pivotEnd = SpreadSheet.inst.GetSheetDimensions() - Vector2Int.one;
+        SetHighlights(true);
+    }
+
+    private void HighlightColumn()
+    {
+        // override existing
+        SetHighlights(false);
+        // and define new
+        pivotStart = new Vector2Int(0, selected.y);
+        pivotEnd = new Vector2Int(SpreadSheet.inst.GetSheetDimensions().x - 1, selected.y);
+        SetHighlights(true);
+    }
+
+    private void DeleteColumn()
+    {
+        // Lazy solution to pivots (used by excel)
+        DisableCopy();
+        SetHighlights(false);
+        pivotStart = selected;
+        pivotEnd = selected;
+
+        Vector2Int dim = SpreadSheet.inst.GetSheetDimensions();
+        for (int c = selected.y; c < dim.y; c++)
+        {
+            for (int r = 0; r < dim.x; r++)
+            {
+                Cell cell = SpreadSheet.inst.GetCellAt(r, c);
+
+                Vector2Int next = new Vector2Int(r, c + 1);
+                if (SpreadSheet.inst.InBounds(next))
+                {
+                    Cell nextCell = SpreadSheet.inst.GetCellAt(next);
+                    cell.SetBgColor(nextCell.GetBgColor());
+                    cell.SetContent(nextCell.GetContent());
+                }
+                else
+                {
+                    cell.SetBgColor(Color.white);
+                    cell.SetContent("");
+                }
+            }
+        }
+    }
+
+    private void InsertColumn()
+    {
+
+    }
+
+    private void HighlightRow()
+    {
+        // override existing
+        SetHighlights(false);
+        // and define new
+        pivotStart = new Vector2Int(selected.x, 0);
+        pivotEnd = new Vector2Int(selected.x, SpreadSheet.inst.GetSheetDimensions().y - 1);
+        SetHighlights(true);
+    }
+
+    private void DeleteRow()
+    {
+
+    }
+
+    private void InsertRow()
+    {
+
     }
 }
