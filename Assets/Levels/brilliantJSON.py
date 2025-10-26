@@ -29,8 +29,7 @@ def wordAndColorSet(cel, col, cr):
     this_cell = []
 
     if cel.value != None:
-        word = cel.value + "`"
-        this_cell.append(word)
+        this_cell.append(cel.value)
     else:
         this_cell.append("Null")
 

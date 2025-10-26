@@ -4,17 +4,17 @@
   "requirements": {
     "replace": [
       [
-        "LOCK`",
+        "LOCK",
         "Null"
       ],
       [
-        "KEY`",
+        "KEY",
         "Null"
       ]
     ],
     "hoverover": [
       [
-        "DOOR`",
+        "DOOR",
         "Null"
       ]
     ],
