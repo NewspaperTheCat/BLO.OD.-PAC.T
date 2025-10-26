@@ -1,5 +1,6 @@
 {
   "level": 7,
+  "description": "Make a red smiley face",
   "boardSize": [
     12,
     10

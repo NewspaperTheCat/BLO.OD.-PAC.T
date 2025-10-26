@@ -1,5 +1,6 @@
 {
   "level": 11,
+  "description": "Make a yellow square",
   "boardSize": [
     12,
     10
