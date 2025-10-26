@@ -106,7 +106,7 @@ public class Selector : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftControl))
         {
             // if control then move via continuity
-            SetSelected(GetNextContinuityEnd(selected, new Vector2Int(dr, dc)));
+            SetSelected(GetNextContinuity(selected, new Vector2Int(dr, dc)));
         }
         else
         {
@@ -114,7 +114,7 @@ public class Selector : MonoBehaviour
         }
     }
 
-    Vector2Int GetNextContinuityEnd(Vector2Int start, Vector2Int dir)
+    Vector2Int GetNextContinuity(Vector2Int start, Vector2Int dir)
     {
         bool continuityBlank = SpreadSheet.inst.GetCellAt(start).GetContent() == "";
 
@@ -126,7 +126,8 @@ public class Selector : MonoBehaviour
             if (!SpreadSheet.inst.InBounds(next)) { foundEnd = start; continue; } // exits when reach edge
 
             bool nextContinuity = SpreadSheet.inst.GetCellAt(next).GetContent() == "";
-            if (nextContinuity != continuityBlank) { foundEnd = next; continue; }
+            if (!continuityBlank && nextContinuity) continuityBlank = true;
+            if (continuityBlank && !nextContinuity) { foundEnd = next; continue; }
 
             // progress scanner
             start = next;
@@ -226,6 +227,11 @@ public class Selector : MonoBehaviour
                 }
             }
         }
+
+        pivotStart = selected;
+        pivotEnd = selected + (copyPivotEnd - copyPivotStart);
+        pivotEnd.Clamp(Vector2Int.zero, SpreadSheet.inst.GetSheetDimensions() - Vector2Int.one);
+        SetHighlights(true);
 
         // nothing left to paste if we just cut
         if (toCut)
