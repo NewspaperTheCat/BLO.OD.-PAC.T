@@ -63,8 +63,6 @@ public class Cell : MonoBehaviour
         {
             // Maxwell.inst.summonMaxwell("color");
         }
-
-
     }
 
     public void SetHighlight(bool setTo) { isHighlighted = setTo; SetBgColor(bgColor); }

@@ -69,30 +69,30 @@ public class Selector : MonoBehaviour
     void Update()
     {
         // control varient handled internally
-        if (Input.GetKeyDown(KeyCode.LeftArrow)) { MoveSelected(0, -1); }
-        if (Input.GetKeyDown(KeyCode.RightArrow)) { MoveSelected(0, 1); }
-        if (Input.GetKeyDown(KeyCode.DownArrow)) { MoveSelected(1, 0); }
-        if (Input.GetKeyDown(KeyCode.UpArrow)) { MoveSelected(-1, 0); }
+        if (Input.GetKeyDown(KeyCode.LeftArrow)) { MoveSelected(0, -1); AudioManager.inst.PlayRandomKeyPress(); }
+        if (Input.GetKeyDown(KeyCode.RightArrow)) { MoveSelected(0, 1); AudioManager.inst.PlayRandomKeyPress(); }
+        if (Input.GetKeyDown(KeyCode.DownArrow)) { MoveSelected(1, 0); AudioManager.inst.PlayRandomKeyPress(); }
+        if (Input.GetKeyDown(KeyCode.UpArrow)) { MoveSelected(-1, 0); AudioManager.inst.PlayRandomKeyPress(); }
 
         if (IsCTRLPressed())
         {
-            if (Input.GetKeyDown(KeyCode.C)) { MarkCopy(false); }
-            if (Input.GetKeyDown(KeyCode.X)) { MarkCopy(true); }
-            if (Input.GetKeyDown(KeyCode.V)) { Paste(); }
-            if (Input.GetKeyDown(KeyCode.A)) { SelectAll(); }
+            if (Input.GetKeyDown(KeyCode.C)) { MarkCopy(false); AudioManager.inst.PlayRandomKeyPress(); }
+            if (Input.GetKeyDown(KeyCode.X)) { MarkCopy(true); AudioManager.inst.PlayRandomKeyPress(); }
+            if (Input.GetKeyDown(KeyCode.V)) { Paste(); AudioManager.inst.PlayRandomKeyPress(); }
+            if (Input.GetKeyDown(KeyCode.A)) { SelectAll(); AudioManager.inst.PlayRandomKeyPress(); }
 
             // Column Operations
-            if (Input.GetKeyDown(KeyCode.Space)) { HighlightColumn(); }
-            if (Input.GetKeyDown(KeyCode.Minus)) { DeleteColumn(); }
-            if (Input.GetKeyDown(KeyCode.Equals)) { InsertColumn(); }
+            if (Input.GetKeyDown(KeyCode.Space)) { HighlightColumn(); AudioManager.inst.PlayRandomKeyPress(); }
+            if (Input.GetKeyDown(KeyCode.Minus)) { DeleteColumn(); AudioManager.inst.PlayRandomKeyPress(); }
+            if (Input.GetKeyDown(KeyCode.Equals)) { InsertColumn(); AudioManager.inst.PlayRandomKeyPress(); }
         }
 
         if (IsShiftPressed())
         {
             // Row Operations
-            if (Input.GetKeyDown(KeyCode.Space)) { HighlightRow(); }
-            if (Input.GetKeyDown(KeyCode.Minus)) { DeleteRow(); }
-            if (Input.GetKeyDown(KeyCode.Equals)) { InsertRow(); }
+            if (Input.GetKeyDown(KeyCode.Space)) { HighlightRow(); AudioManager.inst.PlayRandomKeyPress(); }
+            if (Input.GetKeyDown(KeyCode.Minus)) { DeleteRow(); AudioManager.inst.PlayRandomKeyPress(); }
+            if (Input.GetKeyDown(KeyCode.Equals)) { InsertRow(); AudioManager.inst.PlayRandomKeyPress(); }
         }
     }
 
@@ -105,7 +105,7 @@ public class Selector : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftControl))
         {
             // if control then move via continuity
-            SetSelected(GetNextContinuityEnd(selected, new Vector2Int(dr, dc)));
+            SetSelected(GetNextContinuity(selected, new Vector2Int(dr, dc)));
         }
         else
         {
@@ -113,7 +113,7 @@ public class Selector : MonoBehaviour
         }
     }
 
-    Vector2Int GetNextContinuityEnd(Vector2Int start, Vector2Int dir)
+    Vector2Int GetNextContinuity(Vector2Int start, Vector2Int dir)
     {
         bool continuityBlank = SpreadSheet.inst.GetCellAt(start).GetContent() == "";
 
@@ -125,7 +125,8 @@ public class Selector : MonoBehaviour
             if (!SpreadSheet.inst.InBounds(next)) { foundEnd = start; continue; } // exits when reach edge
 
             bool nextContinuity = SpreadSheet.inst.GetCellAt(next).GetContent() == "";
-            if (nextContinuity != continuityBlank) { foundEnd = next; continue; }
+            if (!continuityBlank && nextContinuity) continuityBlank = true;
+            if (continuityBlank && !nextContinuity) { foundEnd = next; continue; }
 
             // progress scanner
             start = next;
@@ -226,6 +227,11 @@ public class Selector : MonoBehaviour
             }
         }
 
+        pivotStart = selected;
+        pivotEnd = selected + (copyPivotEnd - copyPivotStart);
+        pivotEnd.Clamp(Vector2Int.zero, SpreadSheet.inst.GetSheetDimensions() - Vector2Int.one);
+        SetHighlights(true);
+
         // nothing left to paste if we just cut
         if (toCut)
         {
@@ -254,14 +260,11 @@ public class Selector : MonoBehaviour
     {
         // Lazy solution to pivots (used by excel)
         DisableCopy();
-        SetHighlights(false);
-        pivotStart = selected;
-        pivotEnd = selected;
 
         Vector2Int dim = SpreadSheet.inst.GetSheetDimensions();
         for (int c = selected.y; c < dim.y; c++)
         {
-            for (int r = 0; r < dim.x; r++)
+            for (int r = pivotStart.x; r <= pivotEnd.x; r++)
             {
                 Cell cell = SpreadSheet.inst.GetCellAt(r, c);
 
@@ -283,7 +286,30 @@ public class Selector : MonoBehaviour
 
     private void InsertColumn()
     {
+         // Lazy solution to pivots (used by excel)
+        DisableCopy();
 
+        Vector2Int dim = SpreadSheet.inst.GetSheetDimensions();
+        for (int c = dim.y - 1; c >= selected.y; c--)
+        {
+            for (int r = pivotStart.x; r <= pivotEnd.x; r++)
+            {
+                Cell cell = SpreadSheet.inst.GetCellAt(r, c);
+
+                Vector2Int next = new Vector2Int(r, c - 1);
+                if (c != selected.y)
+                {
+                    Cell nextCell = SpreadSheet.inst.GetCellAt(next);
+                    cell.SetBgColor(nextCell.GetBgColor());
+                    cell.SetContent(nextCell.GetContent());
+                }
+                else
+                {
+                    cell.SetBgColor(Color.white);
+                    cell.SetContent("");
+                }
+            }
+        }
     }
 
     private void HighlightRow()
@@ -298,11 +324,57 @@ public class Selector : MonoBehaviour
 
     private void DeleteRow()
     {
+        // Lazy solution to pivots (used by excel)
+        DisableCopy();
 
+        Vector2Int dim = SpreadSheet.inst.GetSheetDimensions();
+        for (int r = selected.x; r < dim.x; r++)
+        {
+            for (int c = pivotStart.y; c <= pivotEnd.y; c++)
+            {
+                Cell cell = SpreadSheet.inst.GetCellAt(r, c);
+
+                Vector2Int next = new Vector2Int(r + 1, c);
+                if (SpreadSheet.inst.InBounds(next))
+                {
+                    Cell nextCell = SpreadSheet.inst.GetCellAt(next);
+                    cell.SetBgColor(nextCell.GetBgColor());
+                    cell.SetContent(nextCell.GetContent());
+                }
+                else
+                {
+                    cell.SetBgColor(Color.white);
+                    cell.SetContent("");
+                }
+            }
+        }
     }
 
     private void InsertRow()
     {
+        // Lazy solution to pivots (used by excel)
+        DisableCopy();
 
+        Vector2Int dim = SpreadSheet.inst.GetSheetDimensions();
+        for (int r = dim.x - 1; r >= selected.x; r--)
+        {
+            for (int c = pivotStart.y; c <= pivotEnd.y; c++)
+            {
+                Cell cell = SpreadSheet.inst.GetCellAt(r, c);
+
+                Vector2Int next = new Vector2Int(r - 1, c);
+                if (r != selected.x)
+                {
+                    Cell nextCell = SpreadSheet.inst.GetCellAt(next);
+                    cell.SetBgColor(nextCell.GetBgColor());
+                    cell.SetContent(nextCell.GetContent());
+                }
+                else
+                {
+                    cell.SetBgColor(Color.white);
+                    cell.SetContent("");
+                }
+            }
+        }
     }
 }
