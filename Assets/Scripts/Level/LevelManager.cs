@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using ModelLevelJSON;
+using System.IO;
+using Newtonsoft.Json;
 
 public class LevelManager : MonoBehaviour
 {
@@ -27,6 +29,24 @@ public class LevelManager : MonoBehaviour
     
     void Start()
     {
-        string path = Path.Combine(Application.streamingAssetsPath, "1");
+        string path = Path.Combine(Application.dataPath, "Levels", $"brilliantLevel{level}.json");
+
+        if(!File.Exists(path))
+        {
+            Debug.LogError("Level JSON File not found at: " + path);
+            return;
+        }
+
+        //Read JSON
+        string json = File.ReadAllText(path);
+
+        //Deserialize to class
+        LevelJSON levelData = JsonConvert.DeserializeObject<LevelJSON>(json);
+
+        level = levelData.level;
+        //Debug.Log("Board size array: " + string.Join(", ", levelData.boardSize));
+
+        SpreadSheet.inst.CreateGrid(levelData.boardSize[0], levelData.boardSize[1]);
+
     }
 }
