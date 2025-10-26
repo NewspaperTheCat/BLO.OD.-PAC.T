@@ -68,6 +68,11 @@ public class Selector : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.LeftControl)) { AudioManager.inst.PlayRandomKeyPress(); }
+        if (Input.GetKeyDown(KeyCode.RightControl)) { AudioManager.inst.PlayRandomKeyPress(); }
+        if (Input.GetKeyDown(KeyCode.LeftShift)) { AudioManager.inst.PlayRandomKeyPress(); }
+        if (Input.GetKeyDown(KeyCode.RightShift)) { AudioManager.inst.PlayRandomKeyPress(); }
+
         // control varient handled internally
         if (Input.GetKeyDown(KeyCode.LeftArrow)) { MoveSelected(0, -1); AudioManager.inst.PlayRandomKeyPress(); }
         if (Input.GetKeyDown(KeyCode.RightArrow)) { MoveSelected(0, 1); AudioManager.inst.PlayRandomKeyPress(); }
