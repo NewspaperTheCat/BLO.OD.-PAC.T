@@ -15,13 +15,13 @@ public class Maxwell : MonoBehaviour
     public SpriteRenderer textBubble;
     Boolean textBubbleActive = false;
     public SpriteRenderer maxwellPfp;
-    List<string> flavorText;
+    List<String> flavorText = new List<String>();
     [SerializeField] TextAsset flavor;
-    List<string> changeColor;
+    List<String> changeColor = new List<String>();
     [SerializeField] TextAsset color;
-    List<string> changeText;
+    List<String> changeText = new List<String>();
     [SerializeField] TextAsset text;
-    List<string> changeSolution;
+    List<String> changeSolution = new List<String>();
     [SerializeField] TextAsset solution;
 
     // Singleton Design Pattern (to a degree)
