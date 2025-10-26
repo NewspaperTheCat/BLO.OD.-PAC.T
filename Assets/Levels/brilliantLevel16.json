@@ -1,6 +1,24 @@
 {
   "level": 16,
   "description": "Get the key and put it in the lock to unlock the door. Stay on the path.",
+  "requirements": [
+    {
+      "hoverover": [
+        "Done",
+        "Yes"
+      ]
+    },
+    {
+      "nocolor": [
+        "FFFFFF00",
+        "FF92D050",
+        "FF00B050"
+      ]
+    },
+    {
+      "replace": []
+    }
+  ],
   "boardSize": [
     12,
     10

@@ -1,6 +1,24 @@
 {
   "level": 17,
   "description": "Get rid of the blue cells without getting rid of the red cells",
+  "requirements": [
+    {
+      "hoverover": [
+        "Done",
+        "Yes"
+      ]
+    },
+    {
+      "nocolor": [
+        "FFFFFF00",
+        "FF92D050",
+        "FF00B050"
+      ]
+    },
+    {
+      "replace": []
+    }
+  ],
   "boardSize": [
     12,
     10

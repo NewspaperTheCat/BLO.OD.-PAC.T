@@ -1,6 +1,24 @@
 {
   "level": 3,
   "description": "Copy the numbers in columns A, B, and C, rows 2-9, and paste as values in the grid G, H, and I, rows 2-9",
+  "requirements": [
+    {
+      "hoverover": [
+        "Done",
+        "Yes"
+      ]
+    },
+    {
+      "nocolor": [
+        "FFFFFF00",
+        "FF92D050",
+        "FF00B050"
+      ]
+    },
+    {
+      "replace": []
+    }
+  ],
   "boardSize": [
     12,
     10

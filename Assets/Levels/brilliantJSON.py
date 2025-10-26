@@ -22,6 +22,7 @@ sheet = wb.active
 levels = []
 levelsBoardSize = []
 levelsDescription = []
+levelsRequirements = []
 
 for i in range(len(wb.sheetnames)):
  
@@ -78,20 +79,72 @@ for i in range(len(wb.sheetnames)):
 
                 cellData["cells"].append(data)
 
-    
     board_size = {"boardSize": [max_row, max_column]}
-    levelsBoardSize.append(board_size)
-    
+    levelsBoardSize.append(board_size)    
     levels.append(cellData)
+    
+    validRequirementTypes = ["hoverover","nocolor","replace"]
+
+    stop = False
+    requirementData = {"requirements": []}
+    currentRequirementData = {}
+    ##Read Answer Key Requirements
+    for row in sheet.iter_rows(min_row =  max_row + 3):
+        for cell in row:
+
+            # Skip columns after column 20
+            if cell.column > max_column:
+                continue
+            
+            if cell.column == 1 and i == 0:
+                if cell._value == None:
+                    stop = True
+                    break
+                
+                requirementType = cell.value.lower().replace(" ", "")
+                if requirementType not in validRequirementTypes:
+                    raise FileNotFoundError(f"{requirementType} is not a Valid Requirement!")
+                else:
+                    currentRequirementData = {requirementType: []}
+                    requirementData["requirements"].append(currentRequirementData)
+                print(requirementType)
+
+            if cell.column != 1 and i == 0:
+                if '`' in str(cell.value):
+                    break
+                if requirementType == validRequirementTypes[0]:
+                    if cell.value == None:
+                        raise FileNotFoundError(f"{requirementType}, should not have a null value on, row: {cell.row}, cell: {cell.column}")
+                    currentRequirementData[requirementType].append(cell.value)
+                if requirementType == validRequirementTypes[1]:
+                    fill_color = "None"
+
+                    if cell.fill and cell.fill.fgColor:
+                        fg = cell.fill.fgColor
+                        if fg.type == 'rgb' and fg.rgb:
+                            fill_color = fg.rgb.upper()
+
+                    if fill_color == '00000000' or fill_color == "None":
+                        raise FileNotFoundError(f"Invalid Color at row {cell.row}, Column {cell.column}")
+
+                    currentRequirementData[requirementType].append(fill_color)
+                if requirementType == validRequirementTypes[2]:
+                    print("3")
+        if stop:
+            break
+    
+    levelsRequirements.append(requirementData)
+
+
     
 
 for i in range(len(wb.sheetnames)):
     output_file = os.path.join(folder_path, f"brilliantLevel{i + 1}.json")
     with open(output_file, "w", encoding="utf-8") as f:
-        json.dump({"level": i + 1,**levelsDescription[i], **levelsBoardSize[i], **levels[i]}, f, indent=2, ensure_ascii=False)
-        if(i == 0):
-            print(levels[i])
+        json.dump({"level": i + 1,**levelsDescription[i], **levelsRequirements[0], **levelsBoardSize[i], **levels[i]}, f, indent=2, ensure_ascii=False)
+        ##if(i == 0):
+            ##print(levels[i])
 
 
-print(f"✅ Exported Excel data to: {output_file}")
-print(max_row,max_column)
+##print(f"✅ Exported Excel data to: {output_file}")
+##print(max_row,max_column)

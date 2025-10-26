@@ -8,6 +8,9 @@ namespace ModelLevelJSON
     public class LevelJSON
     {
         public int level { get; set;}
+        public string description { get; set;}
+        public RequirementsJSON[] requirements { get; set;}
+
         public int[] boardSize { get; set;}
         public CellJSON[] cells { get; set;}
     }
@@ -18,5 +21,12 @@ namespace ModelLevelJSON
         public int column { get; set;}
         public string value { get; set;}
         public string file_color {  get; set;}
+    }
+
+    public class RequirementsJSON
+    {
+        public string[] hoverover { get; set;}
+        public string[] nocolor { get; set;}
+        public string[] replace { get; set;}
     }
 }
