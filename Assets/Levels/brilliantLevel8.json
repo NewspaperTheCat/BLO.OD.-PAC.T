@@ -1,5 +1,6 @@
 {
   "level": 8,
+  "description": "Get all the yellow to the left (Column A through D) and get rid of the red",
   "boardSize": [
     12,
     10

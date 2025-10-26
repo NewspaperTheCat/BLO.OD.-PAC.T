@@ -1,5 +1,6 @@
 {
   "level": 2,
+  "description": "Delete the blue columns",
   "boardSize": [
     12,
     10

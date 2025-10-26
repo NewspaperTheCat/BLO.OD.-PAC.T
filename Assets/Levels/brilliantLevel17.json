@@ -1,5 +1,6 @@
 {
   "level": 17,
+  "description": "Get rid of the blue cells without getting rid of the red cells",
   "boardSize": [
     12,
     10
