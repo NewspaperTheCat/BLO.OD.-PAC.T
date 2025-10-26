@@ -52,17 +52,17 @@ public class Cell : MonoBehaviour
         int maxwellOdds = UnityEngine.Random.Range(0, 5);
         if (maxwellOdds == 0)
         {
-            // Maxwell.inst.summonMaxwell("text");
+             //Maxwell.inst.summonMaxwell("text", 4);
         }
     }
     public Color GetBgColor() { return bgColor; }
     public void SetBgColor(Color bgColor) { this.bgColor = bgColor; if (isHighlighted) background.color = bgColor * highlight; else background.color = bgColor;
         if (!SpreadSheet.inst.IsGridInitialized()) return; // exit if grid not initialized
-        int maxwellOdds = UnityEngine.Random.Range(0, 5);
-        if (maxwellOdds == 0)
-        {
-            // Maxwell.inst.summonMaxwell("color");
-        }
+        
+
+        
+             
+        
     }
 
     public void SetHighlight(bool setTo) { isHighlighted = setTo; SetBgColor(bgColor); }
