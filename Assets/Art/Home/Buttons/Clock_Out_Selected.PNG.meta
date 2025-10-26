@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0e45b4f1879ccb340beb1f3c4f113851
+guid: 5204fbc030f818f489591c1850495945
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,11 +110,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Selected_Credits_Button_0
+      name: Clock_Out_Selected_0
       rect:
         serializedVersion: 2
         x: 1164
-        y: 271
+        y: 104
         width: 364
         height: 126
       alignment: 0
@@ -124,8 +124,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bc382b9ea32fdde4491501b7561be370
-      internalID: 1811174084
+      spriteID: 23f65c18a61adc74da5036868c2707c6
+      internalID: -207526879
       vertices: []
       indices: 
       edges: []
@@ -141,7 +141,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Selected_Credits_Button_0: 1811174084
+      Clock_Out_Selected_0: -207526879
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

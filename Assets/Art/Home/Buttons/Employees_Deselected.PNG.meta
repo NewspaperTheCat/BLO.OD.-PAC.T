@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 98bcedf654fc8fd41a7b51b2ba64d057
+guid: 4074cb839802b9944b873a8727fbfd76
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Selected_Quit_Button_0
+      name: Employees_Deselected_0
       rect:
         serializedVersion: 2
         x: 1164
-        y: 104
+        y: 271
         width: 364
-        height: 126
+        height: 127
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,8 +124,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d76048f54ba884e44a7e4e0980b8a830
-      internalID: -1877492159
+      spriteID: c6566f4bbdb1ce94392bffabb23d9ab5
+      internalID: -1379835037
       vertices: []
       indices: 
       edges: []
@@ -141,7 +141,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Selected_Quit_Button_0: -1877492159
+      Employees_Deselected_0: -1379835037
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

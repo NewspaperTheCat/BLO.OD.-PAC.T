@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 76b00627710a0214dab20eade105cd82
+guid: d927000d4e2edac4194a959a73afcc04
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Deselected_Quit_Button_0
+      name: Clock_In_Selected_0
       rect:
         serializedVersion: 2
         x: 1164
-        y: 104
+        y: 439
         width: 364
-        height: 127
+        height: 126
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,8 +124,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 85c5b8ecfaad5124d83181a3064ee32e
-      internalID: -1815416626
+      spriteID: b33dcdf10faa48e4a882d0f44c403830
+      internalID: 1570107121
       vertices: []
       indices: 
       edges: []
@@ -141,7 +141,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Deselected_Quit_Button_0: -1815416626
+      Clock_In_Selected_0: 1570107121
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

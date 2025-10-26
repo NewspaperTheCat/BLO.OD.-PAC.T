@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    int days = 1;
+    public int day = 0;
     Boolean puzzleSolved;
     int puzzleIndex = 0;
     Boolean stopwatchActive;

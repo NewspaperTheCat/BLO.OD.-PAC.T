@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d4a9baff2d8ce5f46b353ff5e54a4d94
+guid: cb6d912e0ad74cf43a7ea05892e501d5
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Deselected_Play_Button_0
+      name: Next_Day_Selected_0
       rect:
         serializedVersion: 2
         x: 1163
@@ -124,8 +124,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ec6a570cc38946e4b98917e368b69c95
-      internalID: 61956739
+      spriteID: e690b66a260d16a41b099fa95b06d7c9
+      internalID: 1657615332
       vertices: []
       indices: 
       edges: []
@@ -141,7 +141,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Deselected_Play_Button_0: 61956739
+      Next_Day_Selected_0: 1657615332
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
