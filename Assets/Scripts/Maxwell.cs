@@ -1,25 +1,27 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using static UnityEngine.Rendering.DebugUI.Table;
 
+
 public class Maxwell : MonoBehaviour
 {
     Vector2Int dimensions;
-    public Text dialogueBox;
-    public Sprite textBubble;
+    [SerializeField] private TextMeshProUGUI dialogueBox;
+    public SpriteRenderer textBubble;
     Boolean textBubbleActive = false;
-    public Sprite maxwellPfp;
-    List<string> flavorText;
+    public SpriteRenderer maxwellPfp;
+    List<String> flavorText = new List<String>();
     [SerializeField] TextAsset flavor;
-    List<string> changeColor;
+    List<String> changeColor = new List<String>();
     [SerializeField] TextAsset color;
-    List<string> changeText;
+    List<String> changeText = new List<String>();
     [SerializeField] TextAsset text;
-    List<string> changeSolution;
+    List<String> changeSolution = new List<String>();
     [SerializeField] TextAsset solution;
 
     // Singleton Design Pattern (to a degree)
@@ -46,11 +48,13 @@ public class Maxwell : MonoBehaviour
     void Start()
     {
         dimensions = SpreadSheet.inst.GetSheetDimensions();
+        textBubble.gameObject.SetActive(false);
+        maxwellPfp.gameObject.SetActive(false);
 
-        // readText(flavor, "f");
-        // readText(color, "c");
-        // readText(text, "t");
-        // readText(solution, "s");
+        readText(flavor, "f");
+         readText(color, "c");
+         readText(text, "t");
+         readText(solution, "s");
     }
 
     // Update is called once per frame
@@ -101,35 +105,59 @@ public class Maxwell : MonoBehaviour
 
     }
 
-    public void summonMaxwell(string option)
+    public void changeLevel()
     {
-        int x = UnityEngine.Random.Range(0, dimensions.x + 1);
-        int y = UnityEngine.Random.Range(0, dimensions.y + 1);
-        if (option == "color")
+        dialogueBox.text = (changeSolution[UnityEngine.Random.Range(0, changeSolution.Count)]);
+    }
+
+    public void summonMaxwell( int levelIndex)
+    {
+        int maxwellOdds = UnityEngine.Random.Range(0, 5);
+        int x = UnityEngine.Random.Range(0,SpreadSheet.inst.GetSheetDimensions().x);
+        int y = UnityEngine.Random.Range(0, SpreadSheet.inst.GetSheetDimensions().y);
+        if (maxwellOdds == 0 && levelIndex != 0 && levelIndex != 8)
         {
-            //change color of random cell
-            SpreadSheet.inst.GetCellAt(new Vector2Int(x, y)).SetBgColor(Color.red);
+            int option = UnityEngine.Random.Range(0, 2);
+
+            if (option == 0)
+            {
+                //change color of random cell
+                SpreadSheet.inst.GetCellAt(new Vector2Int(x, y)).SetBgColor(Color.red);
+                if (!textBubbleActive)
+                {
+                    textBubbleActive = true;
+                    textBubble.gameObject.SetActive(true);
+                    maxwellPfp.gameObject.SetActive(true);
+                }
+                dialogueBox.text = (changeColor[UnityEngine.Random.Range(0, changeColor.Count)]);
+
+            }
+
+            else
+            {
+                //change text of random cell
+                SpreadSheet.inst.GetCellAt(x, y).SetContent("Maxwell");
+                if (!textBubbleActive)
+                {
+                    textBubbleActive = true;
+                    textBubble.gameObject.SetActive(true);
+                    maxwellPfp.gameObject.SetActive(true);
+                }
+                dialogueBox.text = (changeText[UnityEngine.Random.Range(0, changeColor.Count)]);
+            }
+        }
+
+        else if (maxwellOdds >=3)
+        {
             if (!textBubbleActive)
             {
                 textBubbleActive = true;
                 textBubble.GameObject().SetActive(true);
                 maxwellPfp.GameObject().SetActive(true);
             }
-            dialogueBox.text = (changeColor [ UnityEngine.Random.Range(0, changeColor.Count)]);
-
+            dialogueBox.text = (flavorText[UnityEngine.Random.Range(0, flavorText.Count)]);
         }
 
-        else
-        {
-            //change text of random cell
-            SpreadSheet.inst.GetCellAt(x, y).SetContent("Maxwell");
-            if (!textBubbleActive)
-            {
-                textBubbleActive = true;
-                textBubble.GameObject().SetActive(true);
-                maxwellPfp.GameObject().SetActive(true);
-            }
-            dialogueBox.text = (changeText[UnityEngine.Random.Range(0, changeColor.Count)]);
-        }
+
     }
 }
