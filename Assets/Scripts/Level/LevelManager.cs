@@ -75,7 +75,7 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    private List<Requirement> requirements;
+    private List<Requirement> requirements = new List<Requirement>();
 
 
     void Awake()
@@ -130,6 +130,7 @@ public class LevelManager : MonoBehaviour
         }
 
         // format this level's requirements
+        requirements = new List<Requirement>();
         for (int i = 0; i < levelData.requirements.hoverover.Length; i++)
         {
             ColorUtility.TryParseHtmlString($"#{levelData.requirements.hoverover[i][1].Substring(2)}", out Color currentColor);
