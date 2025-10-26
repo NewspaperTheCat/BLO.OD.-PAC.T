@@ -10,6 +10,7 @@ using UnityEngine.UI;
 
 public class Cell : MonoBehaviour
 {
+
     // Static to be one universal value
     static Color highlight = new Color(0, 200, 255);
     bool isHighlighted;
@@ -46,9 +47,23 @@ public class Cell : MonoBehaviour
     }
 
     public String GetContent() { return content; }
-    public void SetContent(String content) { this.content = content; contentDisplay.text = content; }
+    public void SetContent(String content) { this.content = content; contentDisplay.text = content;
+        int maxwellOdds = UnityEngine.Random.Range(0, 5);
+        if (maxwellOdds == 0)
+        {
+            Maxwell.inst.summonMaxwell("text");
+        }
+    }
     public Color GetBgColor() { return bgColor; }
-    public void SetBgColor(Color bgColor) { this.bgColor = bgColor; if (isHighlighted) background.color = bgColor * highlight; else background.color = bgColor; }
+    public void SetBgColor(Color bgColor) { this.bgColor = bgColor; if (isHighlighted) background.color = bgColor * highlight; else background.color = bgColor;
+        int maxwellOdds = UnityEngine.Random.Range(0, 5);
+        if (maxwellOdds == 0)
+        {
+            Maxwell.inst.summonMaxwell("color");
+        }
+
+
+    }
 
     public void SetHighlight(bool setTo) { isHighlighted = setTo; SetBgColor(bgColor); }
 
