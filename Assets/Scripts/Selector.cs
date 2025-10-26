@@ -70,30 +70,30 @@ public class Selector : MonoBehaviour
     void Update()
     {
         // control varient handled internally
-        if (Input.GetKeyDown(KeyCode.LeftArrow)) { MoveSelected(0, -1); }
-        if (Input.GetKeyDown(KeyCode.RightArrow)) { MoveSelected(0, 1); }
-        if (Input.GetKeyDown(KeyCode.DownArrow)) { MoveSelected(1, 0); }
-        if (Input.GetKeyDown(KeyCode.UpArrow)) { MoveSelected(-1, 0); }
+        if (Input.GetKeyDown(KeyCode.LeftArrow)) { MoveSelected(0, -1); AudioManager.inst.PlayRandomKeyPress(); }
+        if (Input.GetKeyDown(KeyCode.RightArrow)) { MoveSelected(0, 1); AudioManager.inst.PlayRandomKeyPress(); }
+        if (Input.GetKeyDown(KeyCode.DownArrow)) { MoveSelected(1, 0); AudioManager.inst.PlayRandomKeyPress(); }
+        if (Input.GetKeyDown(KeyCode.UpArrow)) { MoveSelected(-1, 0); AudioManager.inst.PlayRandomKeyPress(); }
 
         if (IsCTRLPressed())
         {
-            if (Input.GetKeyDown(KeyCode.C)) { MarkCopy(false); }
-            if (Input.GetKeyDown(KeyCode.X)) { MarkCopy(true); }
-            if (Input.GetKeyDown(KeyCode.V)) { Paste(); }
-            if (Input.GetKeyDown(KeyCode.A)) { SelectAll(); }
+            if (Input.GetKeyDown(KeyCode.C)) { MarkCopy(false); AudioManager.inst.PlayRandomKeyPress(); }
+            if (Input.GetKeyDown(KeyCode.X)) { MarkCopy(true); AudioManager.inst.PlayRandomKeyPress(); }
+            if (Input.GetKeyDown(KeyCode.V)) { Paste(); AudioManager.inst.PlayRandomKeyPress(); }
+            if (Input.GetKeyDown(KeyCode.A)) { SelectAll(); AudioManager.inst.PlayRandomKeyPress(); }
 
             // Column Operations
-            if (Input.GetKeyDown(KeyCode.Space)) { HighlightColumn(); }
-            if (Input.GetKeyDown(KeyCode.Minus)) { DeleteColumn(); }
-            if (Input.GetKeyDown(KeyCode.Equals)) { InsertColumn(); }
+            if (Input.GetKeyDown(KeyCode.Space)) { HighlightColumn(); AudioManager.inst.PlayRandomKeyPress(); }
+            if (Input.GetKeyDown(KeyCode.Minus)) { DeleteColumn(); AudioManager.inst.PlayRandomKeyPress(); }
+            if (Input.GetKeyDown(KeyCode.Equals)) { InsertColumn(); AudioManager.inst.PlayRandomKeyPress(); }
         }
 
         if (IsShiftPressed())
         {
             // Row Operations
-            if (Input.GetKeyDown(KeyCode.Space)) { HighlightRow(); }
-            if (Input.GetKeyDown(KeyCode.Minus)) { DeleteRow(); }
-            if (Input.GetKeyDown(KeyCode.Equals)) { InsertRow(); }
+            if (Input.GetKeyDown(KeyCode.Space)) { HighlightRow(); AudioManager.inst.PlayRandomKeyPress(); }
+            if (Input.GetKeyDown(KeyCode.Minus)) { DeleteRow(); AudioManager.inst.PlayRandomKeyPress(); }
+            if (Input.GetKeyDown(KeyCode.Equals)) { InsertRow(); AudioManager.inst.PlayRandomKeyPress(); }
         }
     }
 
