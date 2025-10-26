@@ -77,13 +77,13 @@ public class LevelManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Period) && (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)))
         {
-
+            AudioManager.inst.PlayRandomKeyPress();
             level++;
             setLevel();
         }
         if(Input.GetKeyDown(KeyCode.R) && (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)))
         {
-
+            AudioManager.inst.PlayRandomKeyPress();
             setLevel();
         }
     }
