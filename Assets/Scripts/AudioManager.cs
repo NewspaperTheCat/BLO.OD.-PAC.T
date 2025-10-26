@@ -50,5 +50,5 @@ public class AudioManager : MonoBehaviour
     }
 
     public void PlayRandomKeyPress() { PlayRandomSoundFromList(keyPressClips); }
-    public void PlayRandomButtonPress() { PlayRandomSoundFromList(buttonPressClips, .25f); }
+    public void PlayRandomButtonPress() { PlayRandomSoundFromList(buttonPressClips, .1f); }
 }
