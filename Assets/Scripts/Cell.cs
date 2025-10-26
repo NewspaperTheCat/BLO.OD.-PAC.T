@@ -52,7 +52,7 @@ public class Cell : MonoBehaviour
         int maxwellOdds = UnityEngine.Random.Range(0, 5);
         if (maxwellOdds == 0)
         {
-             Maxwell.inst.summonMaxwell("text", 4);
+             //Maxwell.inst.summonMaxwell("text", 4);
         }
     }
     public Color GetBgColor() { return bgColor; }
@@ -61,7 +61,7 @@ public class Cell : MonoBehaviour
         
 
         
-             Maxwell.inst.summonMaxwell("color", 4);
+             
         
     }
 

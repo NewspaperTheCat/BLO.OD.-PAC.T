@@ -105,14 +105,21 @@ public class Maxwell : MonoBehaviour
 
     }
 
-    public void summonMaxwell(string option, int levelIndex)
+    public void changeLevel()
+    {
+        dialogueBox.text = (changeSolution[UnityEngine.Random.Range(0, changeSolution.Count)]);
+    }
+
+    public void summonMaxwell( int levelIndex)
     {
         int maxwellOdds = UnityEngine.Random.Range(0, 5);
-        int x = UnityEngine.Random.Range(0, dimensions.x + 1);
-        int y = UnityEngine.Random.Range(0, dimensions.y + 1);
+        int x = UnityEngine.Random.Range(0,SpreadSheet.inst.GetSheetDimensions().x);
+        int y = UnityEngine.Random.Range(0, SpreadSheet.inst.GetSheetDimensions().y);
         if (maxwellOdds == 0 && levelIndex != 0 && levelIndex != 8)
         {
-            if (option == "color")
+            int option = UnityEngine.Random.Range(0, 2);
+
+            if (option == 0)
             {
                 //change color of random cell
                 SpreadSheet.inst.GetCellAt(new Vector2Int(x, y)).SetBgColor(Color.red);
