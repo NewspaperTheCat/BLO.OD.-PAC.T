@@ -25,8 +25,8 @@ public class SpreadSheet : MonoBehaviour
         inst = null;
     }
 
-    [SerializeField] int ROWS = 10;
-    [SerializeField] int COLS = 5;
+    int ROWS = 0;
+    int COLS = 0;
     Cell[,] sheet;
 
     // useful reference
@@ -39,22 +39,15 @@ public class SpreadSheet : MonoBehaviour
     private bool gridInitialized = false;
     public bool IsGridInitialized() { return gridInitialized; }
 
-    void Start()
+    public void CreateGrid(int newRows, int newCols)
     {
-        rt = GetComponent<RectTransform>();
-        Rect screen = rt.rect;
-        screenBounds = new Vector2(screen.width, screen.height);
+        if (rt == null)
+        {
+            rt = GetComponent<RectTransform>();
+            Rect screen = rt.rect;
+            screenBounds = new Vector2(screen.width, screen.height);
+        }
 
-        // Jank stuff so it doesn't crash on first initialization, not a problem past this
-        int r = ROWS;
-        int c = COLS;
-        ROWS = 0; COLS = 0;
-        CreateGrid(r, c);
-        gridInitialized = true;
-    }
-
-    void CreateGrid(int newRows, int newCols)
-    {
         // delete any existing
         for (int r = 0; r < ROWS; r++)
         {
@@ -88,6 +81,12 @@ public class SpreadSheet : MonoBehaviour
                 sheet[r, c] = cell;
             }
         }
+
+        gridInitialized = true;
+
+        Selector.inst.Reset();
+
+        Debug.Log(newRows + "" + newCols);
     }
 
     public bool InBounds(int r, int c) { return r >= 0 && c >= 0 && r < ROWS && c < COLS; }
