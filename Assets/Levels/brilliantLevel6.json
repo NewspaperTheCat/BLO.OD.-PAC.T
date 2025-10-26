@@ -1,6 +1,24 @@
 {
   "level": 6,
   "description": "Make Maxwell's name cover the whole screen",
+  "requirements": [
+    {
+      "hoverover": [
+        "Done",
+        "Yes"
+      ]
+    },
+    {
+      "nocolor": [
+        "FFFFFF00",
+        "FF92D050",
+        "FF00B050"
+      ]
+    },
+    {
+      "replace": []
+    }
+  ],
   "boardSize": [
     7,
     6

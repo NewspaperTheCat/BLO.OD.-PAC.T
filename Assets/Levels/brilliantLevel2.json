@@ -1,6 +1,24 @@
 {
   "level": 2,
   "description": "Delete the blue columns",
+  "requirements": [
+    {
+      "hoverover": [
+        "Done",
+        "Yes"
+      ]
+    },
+    {
+      "nocolor": [
+        "FFFFFF00",
+        "FF92D050",
+        "FF00B050"
+      ]
+    },
+    {
+      "replace": []
+    }
+  ],
   "boardSize": [
     12,
     10
