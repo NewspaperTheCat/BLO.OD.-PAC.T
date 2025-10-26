@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public static GameManager inst;
     void OnEnable()
     {
-        // ensures there is only ever one Selector
+        // ensures there is only ever one Game Manager
         if (inst == null)
         {
             inst = this;

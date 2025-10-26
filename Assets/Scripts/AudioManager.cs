@@ -33,7 +33,6 @@ public class AudioManager : MonoBehaviour
     // reads all paths into list
     void Awake() {
         keyPressClips.AddRange(Resources.LoadAll(basePath + keyPressPath, typeof(AudioClip)).Cast<AudioClip>());
-        Debug.Log(keyPressClips.Count());
     }
 
     private void PlayRandomSoundFromList(List<AudioClip> list)
