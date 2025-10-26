@@ -88,7 +88,17 @@ public class LevelManager : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+    }
+
+    void OnDisable()
+    {
+        // when disabled (destoryed or scene change) removes this reference from static value
+        Instance = null;
+    }
+
+    void Start()
+    {
+        NewDay();
     }
 
     private void setLevel()
