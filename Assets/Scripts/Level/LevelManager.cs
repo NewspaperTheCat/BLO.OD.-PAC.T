@@ -118,7 +118,7 @@ public class LevelManager : MonoBehaviour
         LevelJSON levelData = JsonConvert.DeserializeObject<LevelJSON>(json);
 
         level = levelData.level;
-        //Debug.Log("Board size array: " + string.Join(", ", levelData.boardSize));
+        //Debug.Log("Board size array: " + string.Join(", ", levelData.boardSize))
 
         SpreadSheet.inst.CreateGrid(levelData.boardSize[0], levelData.boardSize[1]);
 

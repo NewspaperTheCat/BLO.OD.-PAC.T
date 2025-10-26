@@ -1,43 +1,37 @@
 {
   "level": 9,
-  "description": "Navigate from the start of the x's to the end. Stay on the path.",
-  "requirements": [
-    {
-      "hoverover": [
-        "Done",
-        "Yes"
+  "description": "Make column E yellow. (Hint: CTRL Space could be helpful)",
+  "requirements": {
+    "answerkey": {
+      "regionStart": [
+        0,
+        0
+      ],
+      "regionEnd": [
+        12,
+        6
       ]
-    },
-    {
-      "nocolor": [
-        "FFFFFF00",
-        "FF92D050",
-        "FF00B050"
-      ]
-    },
-    {
-      "replace": []
     }
-  ],
+  },
   "boardSize": [
     12,
-    10
+    6
   ],
   "cells": [
     {
       "row": 1,
       "column": 1,
-      "value": "START",
-      "file_color": "FFFFFFFF"
-    },
-    {
-      "row": 1,
-      "column": 2,
       "value": null,
       "file_color": "FFFFFFFF"
     },
     {
       "row": 1,
+      "column": 2,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 1,
       "column": 3,
       "value": null,
       "file_color": "FFFFFFFF"
@@ -61,94 +55,46 @@
       "file_color": "FFFFFFFF"
     },
     {
-      "row": 1,
-      "column": 7,
-      "value": null,
-      "file_color": "FFFFFFFF"
-    },
-    {
-      "row": 1,
-      "column": 8,
-      "value": null,
-      "file_color": "FFFFFFFF"
-    },
-    {
-      "row": 1,
-      "column": 9,
-      "value": null,
-      "file_color": "FFFFFFFF"
-    },
-    {
-      "row": 1,
-      "column": 10,
-      "value": null,
-      "file_color": "FFFFFFFF"
-    },
-    {
       "row": 2,
       "column": 1,
-      "value": "x",
-      "file_color": "FFFFFF00"
+      "value": "Red",
+      "file_color": "FFFFFFFF"
     },
     {
       "row": 2,
       "column": 2,
-      "value": null,
+      "value": "Orange",
       "file_color": "FFFFFFFF"
     },
     {
       "row": 2,
       "column": 3,
-      "value": null,
+      "value": "Yellow",
       "file_color": "FFFFFFFF"
     },
     {
       "row": 2,
       "column": 4,
-      "value": null,
+      "value": "Green",
       "file_color": "FFFFFFFF"
     },
     {
       "row": 2,
       "column": 5,
-      "value": null,
+      "value": "Blue",
       "file_color": "FFFFFFFF"
     },
     {
       "row": 2,
       "column": 6,
-      "value": null,
-      "file_color": "FFFFFFFF"
-    },
-    {
-      "row": 2,
-      "column": 7,
-      "value": null,
-      "file_color": "FFFFFFFF"
-    },
-    {
-      "row": 2,
-      "column": 8,
-      "value": null,
-      "file_color": "FFFFFFFF"
-    },
-    {
-      "row": 2,
-      "column": 9,
-      "value": null,
-      "file_color": "FFFFFFFF"
-    },
-    {
-      "row": 2,
-      "column": 10,
-      "value": null,
+      "value": "Purple",
       "file_color": "FFFFFFFF"
     },
     {
       "row": 3,
       "column": 1,
       "value": null,
-      "file_color": "FFFFFF00"
+      "file_color": "FFFFFFFF"
     },
     {
       "row": 3,
@@ -181,34 +127,10 @@
       "file_color": "FFFFFFFF"
     },
     {
-      "row": 3,
-      "column": 7,
-      "value": null,
-      "file_color": "FFFFFFFF"
-    },
-    {
-      "row": 3,
-      "column": 8,
-      "value": null,
-      "file_color": "FFFFFFFF"
-    },
-    {
-      "row": 3,
-      "column": 9,
-      "value": null,
-      "file_color": "FFFFFFFF"
-    },
-    {
-      "row": 3,
-      "column": 10,
-      "value": null,
-      "file_color": "FFFFFFFF"
-    },
-    {
       "row": 4,
       "column": 1,
       "value": null,
-      "file_color": "FFFFFF00"
+      "file_color": "FFFFFFFF"
     },
     {
       "row": 4,
@@ -225,42 +147,18 @@
     {
       "row": 4,
       "column": 4,
-      "value": "x",
-      "file_color": "FFFFFF00"
+      "value": null,
+      "file_color": "FFFFFFFF"
     },
     {
       "row": 4,
       "column": 5,
       "value": null,
-      "file_color": "FFFFFF00"
+      "file_color": "FFFFFFFF"
     },
     {
       "row": 4,
       "column": 6,
-      "value": "x",
-      "file_color": "FFFFFF00"
-    },
-    {
-      "row": 4,
-      "column": 7,
-      "value": null,
-      "file_color": "FFFFFFFF"
-    },
-    {
-      "row": 4,
-      "column": 8,
-      "value": null,
-      "file_color": "FFFFFFFF"
-    },
-    {
-      "row": 4,
-      "column": 9,
-      "value": null,
-      "file_color": "FFFFFFFF"
-    },
-    {
-      "row": 4,
-      "column": 10,
       "value": null,
       "file_color": "FFFFFFFF"
     },
@@ -268,7 +166,7 @@
       "row": 5,
       "column": 1,
       "value": null,
-      "file_color": "FFFFFF00"
+      "file_color": "FFFFFFFF"
     },
     {
       "row": 5,
@@ -286,7 +184,7 @@
       "row": 5,
       "column": 4,
       "value": null,
-      "file_color": "FFFFFF00"
+      "file_color": "FFFFFFFF"
     },
     {
       "row": 5,
@@ -298,37 +196,13 @@
       "row": 5,
       "column": 6,
       "value": null,
-      "file_color": "FFFFFF00"
-    },
-    {
-      "row": 5,
-      "column": 7,
-      "value": null,
-      "file_color": "FFFFFFFF"
-    },
-    {
-      "row": 5,
-      "column": 8,
-      "value": null,
-      "file_color": "FFFFFFFF"
-    },
-    {
-      "row": 5,
-      "column": 9,
-      "value": null,
-      "file_color": "FFFFFFFF"
-    },
-    {
-      "row": 5,
-      "column": 10,
-      "value": null,
       "file_color": "FFFFFFFF"
     },
     {
       "row": 6,
       "column": 1,
       "value": null,
-      "file_color": "FFFFFF00"
+      "file_color": "FFFFFFFF"
     },
     {
       "row": 6,
@@ -346,7 +220,7 @@
       "row": 6,
       "column": 4,
       "value": null,
-      "file_color": "FFFFFF00"
+      "file_color": "FFFFFFFF"
     },
     {
       "row": 6,
@@ -358,37 +232,13 @@
       "row": 6,
       "column": 6,
       "value": null,
-      "file_color": "FFFFFF00"
-    },
-    {
-      "row": 6,
-      "column": 7,
-      "value": null,
-      "file_color": "FFFFFFFF"
-    },
-    {
-      "row": 6,
-      "column": 8,
-      "value": null,
-      "file_color": "FFFFFFFF"
-    },
-    {
-      "row": 6,
-      "column": 9,
-      "value": null,
-      "file_color": "FFFFFFFF"
-    },
-    {
-      "row": 6,
-      "column": 10,
-      "value": "END",
       "file_color": "FFFFFFFF"
     },
     {
       "row": 7,
       "column": 1,
-      "value": "x",
-      "file_color": "FFFFFF00"
+      "value": null,
+      "file_color": "FFFFFFFF"
     },
     {
       "row": 7,
@@ -405,8 +255,8 @@
     {
       "row": 7,
       "column": 4,
-      "value": "x",
-      "file_color": "FFFFFF00"
+      "value": null,
+      "file_color": "FFFFFFFF"
     },
     {
       "row": 7,
@@ -417,38 +267,14 @@
     {
       "row": 7,
       "column": 6,
-      "value": "x",
-      "file_color": "FFFFFF00"
-    },
-    {
-      "row": 7,
-      "column": 7,
       "value": null,
       "file_color": "FFFFFFFF"
-    },
-    {
-      "row": 7,
-      "column": 8,
-      "value": null,
-      "file_color": "FFFFFFFF"
-    },
-    {
-      "row": 7,
-      "column": 9,
-      "value": null,
-      "file_color": "FFFFFFFF"
-    },
-    {
-      "row": 7,
-      "column": 10,
-      "value": "x",
-      "file_color": "FFFFFF00"
     },
     {
       "row": 8,
       "column": 1,
       "value": null,
-      "file_color": "FFFFFF00"
+      "file_color": "FFFFFFFF"
     },
     {
       "row": 8,
@@ -466,7 +292,7 @@
       "row": 8,
       "column": 4,
       "value": null,
-      "file_color": "FFFFFF00"
+      "file_color": "FFFFFFFF"
     },
     {
       "row": 8,
@@ -478,37 +304,13 @@
       "row": 8,
       "column": 6,
       "value": null,
-      "file_color": "FFFFFF00"
-    },
-    {
-      "row": 8,
-      "column": 7,
-      "value": null,
       "file_color": "FFFFFFFF"
-    },
-    {
-      "row": 8,
-      "column": 8,
-      "value": null,
-      "file_color": "FFFFFFFF"
-    },
-    {
-      "row": 8,
-      "column": 9,
-      "value": null,
-      "file_color": "FFFFFFFF"
-    },
-    {
-      "row": 8,
-      "column": 10,
-      "value": null,
-      "file_color": "FFFFFF00"
     },
     {
       "row": 9,
       "column": 1,
       "value": null,
-      "file_color": "FFFFFF00"
+      "file_color": "FFFFFFFF"
     },
     {
       "row": 9,
@@ -519,14 +321,14 @@
     {
       "row": 9,
       "column": 3,
-      "value": "x",
-      "file_color": "FFFFFF00"
+      "value": null,
+      "file_color": "FFFFFFFF"
     },
     {
       "row": 9,
       "column": 4,
-      "value": "x",
-      "file_color": "FFFFFF00"
+      "value": null,
+      "file_color": "FFFFFFFF"
     },
     {
       "row": 9,
@@ -538,37 +340,13 @@
       "row": 9,
       "column": 6,
       "value": null,
-      "file_color": "FFFFFF00"
-    },
-    {
-      "row": 9,
-      "column": 7,
-      "value": null,
       "file_color": "FFFFFFFF"
-    },
-    {
-      "row": 9,
-      "column": 8,
-      "value": null,
-      "file_color": "FFFFFFFF"
-    },
-    {
-      "row": 9,
-      "column": 9,
-      "value": null,
-      "file_color": "FFFFFFFF"
-    },
-    {
-      "row": 9,
-      "column": 10,
-      "value": null,
-      "file_color": "FFFFFF00"
     },
     {
       "row": 10,
       "column": 1,
       "value": null,
-      "file_color": "FFFFFF00"
+      "file_color": "FFFFFFFF"
     },
     {
       "row": 10,
@@ -580,7 +358,7 @@
       "row": 10,
       "column": 3,
       "value": null,
-      "file_color": "FFFFFF00"
+      "file_color": "FFFFFFFF"
     },
     {
       "row": 10,
@@ -597,38 +375,14 @@
     {
       "row": 10,
       "column": 6,
-      "value": "x",
-      "file_color": "FFFFFF00"
-    },
-    {
-      "row": 10,
-      "column": 7,
-      "value": "x",
-      "file_color": "FFFFFF00"
-    },
-    {
-      "row": 10,
-      "column": 8,
       "value": null,
       "file_color": "FFFFFFFF"
-    },
-    {
-      "row": 10,
-      "column": 9,
-      "value": "x",
-      "file_color": "FFFFFF00"
-    },
-    {
-      "row": 10,
-      "column": 10,
-      "value": "x",
-      "file_color": "FFFFFF00"
     },
     {
       "row": 11,
       "column": 1,
       "value": null,
-      "file_color": "FFFFFF00"
+      "file_color": "FFFFFFFF"
     },
     {
       "row": 11,
@@ -640,7 +394,7 @@
       "row": 11,
       "column": 3,
       "value": null,
-      "file_color": "FFFFFF00"
+      "file_color": "FFFFFFFF"
     },
     {
       "row": 11,
@@ -661,46 +415,22 @@
       "file_color": "FFFFFFFF"
     },
     {
-      "row": 11,
-      "column": 7,
-      "value": null,
-      "file_color": "FFFFFF00"
-    },
-    {
-      "row": 11,
-      "column": 8,
-      "value": null,
-      "file_color": "FFFFFFFF"
-    },
-    {
-      "row": 11,
-      "column": 9,
-      "value": null,
-      "file_color": "FFFFFF00"
-    },
-    {
-      "row": 11,
-      "column": 10,
-      "value": null,
-      "file_color": "FFFFFFFF"
-    },
-    {
       "row": 12,
       "column": 1,
-      "value": "x",
-      "file_color": "FFFFFF00"
+      "value": null,
+      "file_color": "FFFFFFFF"
     },
     {
       "row": 12,
       "column": 2,
       "value": null,
-      "file_color": "FFFFFF00"
+      "file_color": "FFFFFFFF"
     },
     {
       "row": 12,
       "column": 3,
-      "value": "x",
-      "file_color": "FFFFFF00"
+      "value": null,
+      "file_color": "FFFFFFFF"
     },
     {
       "row": 12,
@@ -717,30 +447,6 @@
     {
       "row": 12,
       "column": 6,
-      "value": null,
-      "file_color": "FFFFFFFF"
-    },
-    {
-      "row": 12,
-      "column": 7,
-      "value": "x",
-      "file_color": "FFFFFF00"
-    },
-    {
-      "row": 12,
-      "column": 8,
-      "value": null,
-      "file_color": "FFFFFF00"
-    },
-    {
-      "row": 12,
-      "column": 9,
-      "value": "x",
-      "file_color": "FFFFFF00"
-    },
-    {
-      "row": 12,
-      "column": 10,
       "value": null,
       "file_color": "FFFFFFFF"
     }
