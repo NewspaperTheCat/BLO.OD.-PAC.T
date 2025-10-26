@@ -8,7 +8,7 @@ using static UnityEngine.Rendering.DebugUI.Table;
 
 public class Maxwell : MonoBehaviour
 {
-    Vector2Int dimensions = SpreadSheet.inst.GetSheetDimensions();
+    Vector2Int dimensions;
     public Text dialogueBox;
     public Sprite textBubble;
     Boolean textBubbleActive = false;
@@ -45,10 +45,12 @@ public class Maxwell : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        readText(flavor, "f");
-        readText(color, "c");
-        readText(text, "t");
-        readText(solution, "s");
+        dimensions = SpreadSheet.inst.GetSheetDimensions();
+
+        // readText(flavor, "f");
+        // readText(color, "c");
+        // readText(text, "t");
+        // readText(solution, "s");
     }
 
     // Update is called once per frame
