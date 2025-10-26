@@ -1,5 +1,6 @@
 {
   "level": 4,
+  "description": "Delete the blue rows",
   "boardSize": [
     12,
     10

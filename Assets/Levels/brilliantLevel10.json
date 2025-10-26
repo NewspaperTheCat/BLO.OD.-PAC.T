@@ -1,5 +1,6 @@
 {
   "level": 10,
+  "description": "Make the red cells blue",
   "boardSize": [
     12,
     10

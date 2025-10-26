@@ -1,5 +1,6 @@
 {
   "level": 14,
+  "description": "Get the red rectangle to columns G, H, I, row 2-4",
   "boardSize": [
     12,
     10

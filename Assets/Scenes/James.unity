@@ -289,7 +289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99df8841d299efd4880a8d6c8a19e3cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sfxPrefab: {fileID: 0}
+  sfxPrefab: {fileID: 5228575824437086857, guid: fa70a75027a871048b3eef0c89b97b38, type: 3}
 --- !u!4 &846732935
 Transform:
   m_ObjectHideFlags: 0
@@ -1189,3 +1189,4 @@ SceneRoots:
   - {fileID: 1100471981}
   - {fileID: 982201699}
   - {fileID: 1641537955}
+  - {fileID: 846732935}
