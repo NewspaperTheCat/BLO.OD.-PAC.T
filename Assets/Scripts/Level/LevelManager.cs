@@ -29,9 +29,14 @@ public class LevelManager : MonoBehaviour
     
     void Start()
     {
+        setLevel();
+    }
+
+    private void setLevel()
+    {
         string path = Path.Combine(Application.dataPath, "Levels", $"brilliantLevel{level}.json");
 
-        if(!File.Exists(path))
+        if (!File.Exists(path))
         {
             Debug.LogError("Level JSON File not found at: " + path);
             return;
@@ -48,5 +53,35 @@ public class LevelManager : MonoBehaviour
 
         SpreadSheet.inst.CreateGrid(levelData.boardSize[0], levelData.boardSize[1]);
 
+
+        for (int i = 0; i < levelData.cells.Length; i++)
+        {
+            Cell currentCell = SpreadSheet.inst.GetCellAt(levelData.cells[i].row - 1, levelData.cells[i].column - 1);
+
+            ColorUtility.TryParseHtmlString($"#{levelData.cells[i].file_color.Substring(2)}", out Color currentColor);
+
+            currentCell.SetBgColor(currentColor);
+
+            Debug.Log(currentColor);
+
+            if (levelData.cells[i].value != null)
+            {
+                currentCell.SetContent(levelData.cells[i].value);
+            }
+
+
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Period))
+        {
+
+            level++;
+            setLevel();
+        }
     }
 }
+
+

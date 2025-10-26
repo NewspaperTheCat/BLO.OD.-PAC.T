@@ -83,6 +83,10 @@ public class SpreadSheet : MonoBehaviour
         }
 
         gridInitialized = true;
+
+        Selector.inst.Reset();
+
+        Debug.Log(newRows + "" + newCols);
     }
 
     public bool InBounds(int r, int c) { return r >= 0 && c >= 0 && r < ROWS && c < COLS; }

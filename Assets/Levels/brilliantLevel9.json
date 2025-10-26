@@ -9,7 +9,61 @@
       "row": 1,
       "column": 1,
       "value": "START",
-      "file_color": "00000000"
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 1,
+      "column": 2,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 1,
+      "column": 3,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 1,
+      "column": 4,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 1,
+      "column": 5,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 1,
+      "column": 6,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 1,
+      "column": 7,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 1,
+      "column": 8,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 1,
+      "column": 9,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 1,
+      "column": 10,
+      "value": null,
+      "file_color": "FFFFFFFF"
     },
     {
       "row": 2,
@@ -18,16 +72,136 @@
       "file_color": "FFFFFF00"
     },
     {
+      "row": 2,
+      "column": 2,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 2,
+      "column": 3,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 2,
+      "column": 4,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 2,
+      "column": 5,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 2,
+      "column": 6,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 2,
+      "column": 7,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 2,
+      "column": 8,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 2,
+      "column": 9,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 2,
+      "column": 10,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
       "row": 3,
       "column": 1,
       "value": null,
       "file_color": "FFFFFF00"
     },
     {
+      "row": 3,
+      "column": 2,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 3,
+      "column": 3,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 3,
+      "column": 4,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 3,
+      "column": 5,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 3,
+      "column": 6,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 3,
+      "column": 7,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 3,
+      "column": 8,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 3,
+      "column": 9,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 3,
+      "column": 10,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
       "row": 4,
       "column": 1,
       "value": null,
       "file_color": "FFFFFF00"
+    },
+    {
+      "row": 4,
+      "column": 2,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 4,
+      "column": 3,
+      "value": null,
+      "file_color": "FFFFFFFF"
     },
     {
       "row": 4,
@@ -48,10 +222,46 @@
       "file_color": "FFFFFF00"
     },
     {
+      "row": 4,
+      "column": 7,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 4,
+      "column": 8,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 4,
+      "column": 9,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 4,
+      "column": 10,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
       "row": 5,
       "column": 1,
       "value": null,
       "file_color": "FFFFFF00"
+    },
+    {
+      "row": 5,
+      "column": 2,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 5,
+      "column": 3,
+      "value": null,
+      "file_color": "FFFFFFFF"
     },
     {
       "row": 5,
@@ -61,9 +271,39 @@
     },
     {
       "row": 5,
+      "column": 5,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 5,
       "column": 6,
       "value": null,
       "file_color": "FFFFFF00"
+    },
+    {
+      "row": 5,
+      "column": 7,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 5,
+      "column": 8,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 5,
+      "column": 9,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 5,
+      "column": 10,
+      "value": null,
+      "file_color": "FFFFFFFF"
     },
     {
       "row": 6,
@@ -73,21 +313,57 @@
     },
     {
       "row": 6,
+      "column": 2,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 6,
+      "column": 3,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 6,
       "column": 4,
       "value": null,
       "file_color": "FFFFFF00"
     },
     {
       "row": 6,
+      "column": 5,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 6,
       "column": 6,
       "value": null,
       "file_color": "FFFFFF00"
+    },
+    {
+      "row": 6,
+      "column": 7,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 6,
+      "column": 8,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 6,
+      "column": 9,
+      "value": null,
+      "file_color": "FFFFFFFF"
     },
     {
       "row": 6,
       "column": 10,
       "value": "END",
-      "file_color": "00000000"
+      "file_color": "FFFFFFFF"
     },
     {
       "row": 7,
@@ -97,15 +373,51 @@
     },
     {
       "row": 7,
+      "column": 2,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 7,
+      "column": 3,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 7,
       "column": 4,
       "value": "x",
       "file_color": "FFFFFF00"
     },
     {
       "row": 7,
+      "column": 5,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 7,
       "column": 6,
       "value": "x",
       "file_color": "FFFFFF00"
+    },
+    {
+      "row": 7,
+      "column": 7,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 7,
+      "column": 8,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 7,
+      "column": 9,
+      "value": null,
+      "file_color": "FFFFFFFF"
     },
     {
       "row": 7,
@@ -121,15 +433,51 @@
     },
     {
       "row": 8,
+      "column": 2,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 8,
+      "column": 3,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 8,
       "column": 4,
       "value": null,
       "file_color": "FFFFFF00"
     },
     {
       "row": 8,
+      "column": 5,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 8,
       "column": 6,
       "value": null,
       "file_color": "FFFFFF00"
+    },
+    {
+      "row": 8,
+      "column": 7,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 8,
+      "column": 8,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 8,
+      "column": 9,
+      "value": null,
+      "file_color": "FFFFFFFF"
     },
     {
       "row": 8,
@@ -142,6 +490,12 @@
       "column": 1,
       "value": null,
       "file_color": "FFFFFF00"
+    },
+    {
+      "row": 9,
+      "column": 2,
+      "value": null,
+      "file_color": "FFFFFFFF"
     },
     {
       "row": 9,
@@ -157,9 +511,33 @@
     },
     {
       "row": 9,
+      "column": 5,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 9,
       "column": 6,
       "value": null,
       "file_color": "FFFFFF00"
+    },
+    {
+      "row": 9,
+      "column": 7,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 9,
+      "column": 8,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 9,
+      "column": 9,
+      "value": null,
+      "file_color": "FFFFFFFF"
     },
     {
       "row": 9,
@@ -175,9 +553,27 @@
     },
     {
       "row": 10,
+      "column": 2,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 10,
       "column": 3,
       "value": null,
       "file_color": "FFFFFF00"
+    },
+    {
+      "row": 10,
+      "column": 4,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 10,
+      "column": 5,
+      "value": null,
+      "file_color": "FFFFFFFF"
     },
     {
       "row": 10,
@@ -190,6 +586,12 @@
       "column": 7,
       "value": "x",
       "file_color": "FFFFFF00"
+    },
+    {
+      "row": 10,
+      "column": 8,
+      "value": null,
+      "file_color": "FFFFFFFF"
     },
     {
       "row": 10,
@@ -211,9 +613,33 @@
     },
     {
       "row": 11,
+      "column": 2,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 11,
       "column": 3,
       "value": null,
       "file_color": "FFFFFF00"
+    },
+    {
+      "row": 11,
+      "column": 4,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 11,
+      "column": 5,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 11,
+      "column": 6,
+      "value": null,
+      "file_color": "FFFFFFFF"
     },
     {
       "row": 11,
@@ -223,9 +649,21 @@
     },
     {
       "row": 11,
+      "column": 8,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 11,
       "column": 9,
       "value": null,
       "file_color": "FFFFFF00"
+    },
+    {
+      "row": 11,
+      "column": 10,
+      "value": null,
+      "file_color": "FFFFFFFF"
     },
     {
       "row": 12,
@@ -247,6 +685,24 @@
     },
     {
       "row": 12,
+      "column": 4,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 12,
+      "column": 5,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 12,
+      "column": 6,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 12,
       "column": 7,
       "value": "x",
       "file_color": "FFFFFF00"
@@ -262,6 +718,12 @@
       "column": 9,
       "value": "x",
       "file_color": "FFFFFF00"
+    },
+    {
+      "row": 12,
+      "column": 10,
+      "value": null,
+      "file_color": "FFFFFFFF"
     }
   ]
 }

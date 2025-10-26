@@ -46,6 +46,8 @@ for i in range(len(wb.sheetnames)):
                 fg = cell.fill.fgColor
                 if fg.type == 'rgb' and fg.rgb:
                     fill_color = fg.rgb.upper()
+                    if fill_color == "00000000" or fill_color == "FF000000":
+                        fill_color = "FFFFFFFF"
 
             data = {
                 "row": cell.row,
@@ -81,10 +83,9 @@ for i in range(len(wb.sheetnames)):
     output_file = os.path.join(folder_path, f"brilliantLevel{i + 1}.json")
     with open(output_file, "w", encoding="utf-8") as f:
         json.dump({"level": i + 1, **levelsBoardSize[i], **levels[i]}, f, indent=2, ensure_ascii=False)
+        if(i == 0):
+            print(levels[i])
 
 
 print(f"✅ Exported Excel data to: {output_file}")
-
-
-print(cellData)
 print(max_row,max_column)
