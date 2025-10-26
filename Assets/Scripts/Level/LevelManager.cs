@@ -90,12 +90,6 @@ public class LevelManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
     }
-        
-    
-    void Start()
-    {
-        setLevel();
-    }
 
     private void setLevel()
     {
@@ -156,11 +150,12 @@ public class LevelManager : MonoBehaviour
                 ColorUtility.TryParseHtmlString($"#{levelData.requirements.replace[i][1].Substring(2)}", out targetColor);
             requirements.Add(new Replace(levelData.requirements.hoverover[i][2], sourceColor, levelData.requirements.hoverover[i][0], targetColor));
         }
-        if (levelData.requirements.answerKey.regionStart[0] != -1) {
+        if (levelData.requirements.answerKey.regionStart[0] != -1)
+        {
             AnswerKey ak = new AnswerKey(
                 new Vector2Int(levelData.requirements.answerKey.regionStart[0], levelData.requirements.answerKey.regionStart[1]),
                 new Vector2Int(levelData.requirements.answerKey.regionEnd[0], levelData.requirements.answerKey.regionEnd[1]));
-            
+
             // add all cells
             for (int i = 0; i < levelData.requirements.answerKey.cells.Length; i++)
             {
@@ -172,6 +167,35 @@ public class LevelManager : MonoBehaviour
             }
         }
     }
+
+    // ===============================================
+    // Level navigation logic
+
+    int[] levelAmountsPerDay = { 9, 13, 17, 21, 25 };
+
+    // called externally
+    private void NewDay()
+    {
+        level = 1;
+        setLevel();
+    }
+
+    private void NextLevel()
+    {
+        AudioManager.inst.PlayRandomSuccess();
+        level++;
+
+        if (level > levelAmountsPerDay[GameManager.inst.day - 1])
+        {
+            GameManager.inst.DayComplete();
+        }
+        else
+        {
+            setLevel();
+        }
+    }
+
+    // ===============================================
 
     private void Update()
     {
@@ -204,18 +228,15 @@ public class LevelManager : MonoBehaviour
             // if a singler missing requirement then exit
             if (!requirements[i].done) { allDone = false; break; }
         }
-        if (allDone)
+
+
+        // // allow the player to continue
+        if (Input.GetKeyDown(KeyCode.Period) && (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)))
         {
-            // // all the player to continue
-            // // ideally show some indicator
-            // if (Input.GetKeyDown(KeyCode.Period) && (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)))
-            // {
-                AudioManager.inst.PlayRandomKeyPress();
-                level++;
-            setLevel();
-            // }
-            // indicator cut for time, just boots you to next goal
+            AudioManager.inst.PlayRandomKeyPress();
+            if (allDone) NextLevel(); // ideally show some indicator
         }
+        // indicator cut for time, just boots you to next goal
     }
 
     private void CheckHoverOver(HoverOver horeq) {

@@ -45,4 +45,10 @@ public class GameManager : MonoBehaviour
 
         TimeSpan time = TimeSpan.FromSeconds(currentTime);
     }
+
+    public void DayComplete()
+    {
+        day++;
+        SceneNavigator.inst.ToTransition();
+    }
 }

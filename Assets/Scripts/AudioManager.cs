@@ -33,6 +33,9 @@ public class AudioManager : MonoBehaviour
     String buttonPressPath = "Buttons/";
     List<AudioClip> buttonPressClips = new List<AudioClip>();
 
+    String successPath = "Success/";
+    List<AudioClip> successClips = new List<AudioClip>();
+
     // reads all paths into list
     void Awake() {
         keyPressClips.AddRange(Resources.LoadAll(basePath + keyPressPath, typeof(AudioClip)).Cast<AudioClip>());
@@ -51,4 +54,5 @@ public class AudioManager : MonoBehaviour
 
     public void PlayRandomKeyPress() { PlayRandomSoundFromList(keyPressClips); }
     public void PlayRandomButtonPress() { PlayRandomSoundFromList(buttonPressClips, .1f); }
+    public void PlayRandomSuccess() { PlayRandomSoundFromList(successClips, 1.25f); }
 }
