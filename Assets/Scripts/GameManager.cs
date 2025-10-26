@@ -5,6 +5,22 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    // Singleton Design Pattern (to a degree)
+    public static GameManager inst;
+    void OnEnable()
+    {
+        // ensures there is only ever one Selector
+        if (inst == null)
+        {
+            inst = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     int days = 1;
     Boolean puzzleSolved;
     int puzzleIndex = 0;

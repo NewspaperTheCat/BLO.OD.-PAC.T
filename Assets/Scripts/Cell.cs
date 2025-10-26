@@ -48,18 +48,20 @@ public class Cell : MonoBehaviour
 
     public String GetContent() { return content; }
     public void SetContent(String content) { this.content = content; contentDisplay.text = content;
+        if (!SpreadSheet.inst.IsGridInitialized()) return; // exit if grid not initialized
         int maxwellOdds = UnityEngine.Random.Range(0, 5);
         if (maxwellOdds == 0)
         {
-            Maxwell.inst.summonMaxwell("text");
+            // Maxwell.inst.summonMaxwell("text");
         }
     }
     public Color GetBgColor() { return bgColor; }
     public void SetBgColor(Color bgColor) { this.bgColor = bgColor; if (isHighlighted) background.color = bgColor * highlight; else background.color = bgColor;
+        if (!SpreadSheet.inst.IsGridInitialized()) return; // exit if grid not initialized
         int maxwellOdds = UnityEngine.Random.Range(0, 5);
         if (maxwellOdds == 0)
         {
-            Maxwell.inst.summonMaxwell("color");
+            // Maxwell.inst.summonMaxwell("color");
         }
 
 

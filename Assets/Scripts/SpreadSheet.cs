@@ -36,6 +36,8 @@ public class SpreadSheet : MonoBehaviour
     float CELL_WIDTH = 1; // get set in code, assumes cells are 1x1
     float CELL_HEIGHT = 1;
 
+    private bool gridInitialized = false;
+    public bool IsGridInitialized() { return gridInitialized; }
 
     void Start()
     {
@@ -48,6 +50,7 @@ public class SpreadSheet : MonoBehaviour
         int c = COLS;
         ROWS = 0; COLS = 0;
         CreateGrid(r, c);
+        gridInitialized = true;
     }
 
     void CreateGrid(int newRows, int newCols)
