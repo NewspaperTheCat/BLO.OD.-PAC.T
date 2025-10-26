@@ -40,6 +40,7 @@ public class AudioManager : MonoBehaviour
     void Awake() {
         keyPressClips.AddRange(Resources.LoadAll(basePath + keyPressPath, typeof(AudioClip)).Cast<AudioClip>());
         buttonPressClips.AddRange(Resources.LoadAll(basePath + buttonPressPath, typeof(AudioClip)).Cast<AudioClip>());
+        successClips.AddRange(Resources.LoadAll(basePath + successPath, typeof(AudioClip)).Cast<AudioClip>());
     }
 
     private void PlayRandomSoundFromList(List<AudioClip> list, float pitchRange = .5f)
