@@ -218,8 +218,8 @@ public class Selector : MonoBehaviour
             for (int c = copyPivotStart.y; c <= copyPivotEnd.y; c++)
             {
                 Cell source = SpreadSheet.inst.GetCellAt(r, c);
-                colors[r, c] = source.GetBgColor();
-                contents[r, c] = source.GetContent();
+                colors[r - copyPivotStart.x, c - copyPivotStart.y] = source.GetBgColor();
+                contents[r - copyPivotStart.x, c - copyPivotStart.y] = source.GetContent();
 
                 if (toCut) // replace value
                 {
