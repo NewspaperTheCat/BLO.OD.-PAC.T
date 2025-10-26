@@ -47,7 +47,6 @@ public class Selector : MonoBehaviour
     {
         copyPivotStart = new Vector2Int(-1, -1); // null value
         rt = GetComponent<RectTransform>();
-        Reset();
     }
 
     public void Reset()
