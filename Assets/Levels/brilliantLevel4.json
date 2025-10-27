@@ -2,12 +2,14 @@
   "level": 4,
   "description": "Delete the blue column. (Hint: CTRL - (minus) could be helpful)",
   "requirements": {
+    "hoverover": [],
     "nocell": [
       [
         "Null",
         "FF00B0F0"
       ]
     ],
+    "replace": [],
     "answerkey": {
       "regionStart": [
         -1,
@@ -16,7 +18,8 @@
       "regionEnd": [
         6,
         7
-      ]
+      ],
+      "answerData": []
     }
   },
   "boardSize": [
@@ -40,7 +43,7 @@
       "row": 1,
       "column": 3,
       "value": null,
-      "file_color": "FFFFFFFF"
+      "file_color": "FF00B0F0"
     },
     {
       "row": 1,
@@ -64,37 +67,37 @@
       "row": 2,
       "column": 1,
       "value": null,
-      "file_color": "FFFFFF00"
+      "file_color": "FFFFFFFF"
     },
     {
       "row": 2,
       "column": 2,
       "value": null,
-      "file_color": "FFFFFF00"
+      "file_color": "FFFFFFFF"
     },
     {
       "row": 2,
       "column": 3,
       "value": null,
-      "file_color": "FFFFFF00"
+      "file_color": "FF00B0F0"
     },
     {
       "row": 2,
       "column": 4,
       "value": null,
-      "file_color": "FFFFFF00"
+      "file_color": "FFFFFFFF"
     },
     {
       "row": 2,
       "column": 5,
       "value": null,
-      "file_color": "FFFFFF00"
+      "file_color": "FFFFFFFF"
     },
     {
       "row": 2,
       "column": 6,
       "value": null,
-      "file_color": "FFFFFF00"
+      "file_color": "FFFFFFFF"
     },
     {
       "row": 3,
@@ -112,7 +115,7 @@
       "row": 3,
       "column": 3,
       "value": null,
-      "file_color": "FFFFFFFF"
+      "file_color": "FF00B0F0"
     },
     {
       "row": 3,
@@ -148,7 +151,7 @@
       "row": 4,
       "column": 3,
       "value": null,
-      "file_color": "FFFFFFFF"
+      "file_color": "FF00B0F0"
     },
     {
       "row": 4,
@@ -184,7 +187,7 @@
       "row": 5,
       "column": 3,
       "value": null,
-      "file_color": "FFFFFFFF"
+      "file_color": "FF00B0F0"
     },
     {
       "row": 5,
@@ -220,7 +223,7 @@
       "row": 6,
       "column": 3,
       "value": null,
-      "file_color": "FFFFFFFF"
+      "file_color": "FF00B0F0"
     },
     {
       "row": 6,
@@ -244,37 +247,37 @@
       "row": 7,
       "column": 1,
       "value": null,
-      "file_color": "FF92D050"
+      "file_color": "FFFFFFFF"
     },
     {
       "row": 7,
       "column": 2,
       "value": null,
-      "file_color": "FF92D050"
+      "file_color": "FFFFFFFF"
     },
     {
       "row": 7,
       "column": 3,
       "value": null,
-      "file_color": "FF92D050"
+      "file_color": "FF00B0F0"
     },
     {
       "row": 7,
       "column": 4,
       "value": null,
-      "file_color": "FF92D050"
+      "file_color": "FFFFFFFF"
     },
     {
       "row": 7,
       "column": 5,
       "value": null,
-      "file_color": "FF92D050"
+      "file_color": "FFFFFFFF"
     },
     {
       "row": 7,
       "column": 6,
       "value": null,
-      "file_color": "FF92D050"
+      "file_color": "FFFFFFFF"
     },
     {
       "row": 8,
@@ -292,7 +295,7 @@
       "row": 8,
       "column": 3,
       "value": null,
-      "file_color": "FFFFFFFF"
+      "file_color": "FF00B0F0"
     },
     {
       "row": 8,
@@ -308,6 +311,150 @@
     },
     {
       "row": 8,
+      "column": 6,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 9,
+      "column": 1,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 9,
+      "column": 2,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 9,
+      "column": 3,
+      "value": null,
+      "file_color": "FF00B0F0"
+    },
+    {
+      "row": 9,
+      "column": 4,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 9,
+      "column": 5,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 9,
+      "column": 6,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 10,
+      "column": 1,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 10,
+      "column": 2,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 10,
+      "column": 3,
+      "value": null,
+      "file_color": "FF00B0F0"
+    },
+    {
+      "row": 10,
+      "column": 4,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 10,
+      "column": 5,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 10,
+      "column": 6,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 11,
+      "column": 1,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 11,
+      "column": 2,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 11,
+      "column": 3,
+      "value": null,
+      "file_color": "FF00B0F0"
+    },
+    {
+      "row": 11,
+      "column": 4,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 11,
+      "column": 5,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 11,
+      "column": 6,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 12,
+      "column": 1,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 12,
+      "column": 2,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 12,
+      "column": 3,
+      "value": null,
+      "file_color": "FF00B0F0"
+    },
+    {
+      "row": 12,
+      "column": 4,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 12,
+      "column": 5,
+      "value": null,
+      "file_color": "FFFFFFFF"
+    },
+    {
+      "row": 12,
       "column": 6,
       "value": null,
       "file_color": "FFFFFFFF"
