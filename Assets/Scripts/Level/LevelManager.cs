@@ -103,7 +103,7 @@ public class LevelManager : MonoBehaviour
 
     private void setLevel()
     {
-        string path = Path.Combine(Application.dataPath, "Levels", $"brilliantLevel{level}.json");
+        string path = Path.Combine(Application.dataPath, "Resources/Levels", $"brilliantLevel{level}.json");
 
         if (!File.Exists(path))
         {
@@ -131,7 +131,7 @@ public class LevelManager : MonoBehaviour
 
             currentCell.SetBgColor(currentColor);
 
-            Debug.Log(currentColor);
+            // Debug.Log(currentColor);
 
             if (levelData.cells[i].value != null)
             {
@@ -146,10 +146,10 @@ public class LevelManager : MonoBehaviour
             ColorUtility.TryParseHtmlString($"#{levelData.requirements.hoverover[i][1].Substring(2)}", out Color currentColor);
             requirements.Add(new HoverOver(levelData.requirements.hoverover[i][0], currentColor));
         }
-        for (int i = 0; i < levelData.requirements.nocolor.Length; i++)
+        for (int i = 0; i < levelData.requirements.nocell.Length; i++)
         {
-            ColorUtility.TryParseHtmlString($"#{levelData.requirements.nocolor[i][1].Substring(2)}", out Color currentColor);
-            requirements.Add(new NoCell(levelData.requirements.nocolor[i][0], currentColor));
+            ColorUtility.TryParseHtmlString($"#{levelData.requirements.nocell[i][1].Substring(2)}", out Color currentColor);
+            requirements.Add(new NoCell(levelData.requirements.nocell[i][0], currentColor));
         }
         for (int i = 0; i < levelData.requirements.replace.Length; i++)
         {
@@ -161,7 +161,7 @@ public class LevelManager : MonoBehaviour
                 ColorUtility.TryParseHtmlString($"#{levelData.requirements.replace[i][1].Substring(2)}", out targetColor);
             requirements.Add(new Replace(levelData.requirements.hoverover[i][2], sourceColor, levelData.requirements.hoverover[i][0], targetColor));
         }
-        if (levelData.requirements.answerKey.regionStart[0] != -1)
+        if (false && levelData.requirements.answerKey.regionStart[0] != -1)
         {
             AnswerKey ak = new AnswerKey(
                 new Vector2Int(levelData.requirements.answerKey.regionStart[0], levelData.requirements.answerKey.regionStart[1]),
@@ -245,7 +245,8 @@ public class LevelManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Period) && (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)))
         {
             AudioManager.inst.PlayRandomKeyPress();
-            if (allDone) NextLevel(); // ideally show some indicator
+            // if (allDone) NextLevel(); // ideally show some indicator
+            NextLevel();
         }
         // indicator cut for time, just boots you to next goal
     }

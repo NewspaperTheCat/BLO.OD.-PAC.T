@@ -26,7 +26,7 @@ namespace ModelLevelJSON
     public class RequirementsJSON
     {
         public string[][] hoverover { get; set; } // { ["Value", "Color"], ["Value", "Color"], ["Value", "Color"], ... }
-        public string[][] nocolor { get; set; } // { ["Value", "Color"], ["Value", "Color"], ["Value", "Color"], ... }
+        public string[][] nocell { get; set; } // { ["Value", "Color"], ["Value", "Color"], ["Value", "Color"], ... }
         public string[][] replace { get; set; } // { ["Value", "Color", "Value", "Color"], ["Value", "Color", "Value", "Color"], ... }        
         public AnswerKeyJSON answerKey;
     }
