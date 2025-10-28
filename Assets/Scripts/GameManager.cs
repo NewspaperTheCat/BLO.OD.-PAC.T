@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    int days = 1;
+    public int day = 0;
     Boolean puzzleSolved;
     int puzzleIndex = 0;
     Boolean stopwatchActive;
@@ -44,5 +44,11 @@ public class GameManager : MonoBehaviour
         }
 
         TimeSpan time = TimeSpan.FromSeconds(currentTime);
+    }
+
+    public void DayComplete()
+    {
+        day++;
+        SceneNavigator.inst.ToTransition();
     }
 }

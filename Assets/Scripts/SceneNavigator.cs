@@ -27,12 +27,13 @@ public class SceneNavigator : MonoBehaviour
         inst = null;
     }
 
-    public void ToTitle() { SceneManager.LoadScene("Title"); }
-    public void ToEmployees() { SceneManager.LoadScene("Employees"); }
-    public void ToGame() { SceneManager.LoadScene("Game"); }
-    public void ToTransition() { SceneManager.LoadScene("Transition"); }
+    public void ToTitle() { SceneManager.LoadScene("Title"); AudioManager.inst.PlayRandomButtonPress(); }
+    public void ToEmployees() { SceneManager.LoadScene("Employees"); AudioManager.inst.PlayRandomButtonPress(); }
+    public void ToGame() { SceneManager.LoadScene("Game"); AudioManager.inst.PlayRandomButtonPress(); }
+    public void ToTransition() { SceneManager.LoadScene("Transition"); AudioManager.inst.PlayRandomButtonPress(); }
     public void QuitOut()
     {
+        AudioManager.inst.PlayRandomButtonPress();
         #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
         #else
