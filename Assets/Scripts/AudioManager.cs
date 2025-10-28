@@ -30,19 +30,30 @@ public class AudioManager : MonoBehaviour
     String keyPressPath = "Keys/";
     List<AudioClip> keyPressClips = new List<AudioClip>();
 
+    String buttonPressPath = "Buttons/";
+    List<AudioClip> buttonPressClips = new List<AudioClip>();
+
+    String successPath = "Success/";
+    List<AudioClip> successClips = new List<AudioClip>();
+
     // reads all paths into list
     void Awake() {
         keyPressClips.AddRange(Resources.LoadAll(basePath + keyPressPath, typeof(AudioClip)).Cast<AudioClip>());
+        buttonPressClips.AddRange(Resources.LoadAll(basePath + buttonPressPath, typeof(AudioClip)).Cast<AudioClip>());
+        successClips.AddRange(Resources.LoadAll(basePath + successPath, typeof(AudioClip)).Cast<AudioClip>());
     }
 
-    private void PlayRandomSoundFromList(List<AudioClip> list)
+    private void PlayRandomSoundFromList(List<AudioClip> list, float pitchRange = .5f)
     {
         AudioSource aus = Instantiate(sfxPrefab).GetComponent<AudioSource>();
         aus.clip = list[UnityEngine.Random.Range(0, list.Count())];
-        aus.pitch = UnityEngine.Random.Range(0.75f, 1.25f);
+        aus.pitch = UnityEngine.Random.Range(1 - pitchRange * .5f, 1 + pitchRange * .5f);
         aus.Play();
+        DontDestroyOnLoad(aus.gameObject);
         Destroy(aus.gameObject, aus.clip.length + .1f);
     }
 
     public void PlayRandomKeyPress() { PlayRandomSoundFromList(keyPressClips); }
+    public void PlayRandomButtonPress() { PlayRandomSoundFromList(buttonPressClips, .1f); }
+    public void PlayRandomSuccess() { PlayRandomSoundFromList(successClips, 1.25f); }
 }
