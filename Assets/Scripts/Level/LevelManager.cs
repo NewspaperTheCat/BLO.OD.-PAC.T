@@ -161,7 +161,7 @@ public class LevelManager : MonoBehaviour
                 ColorUtility.TryParseHtmlString($"#{levelData.requirements.replace[i][1].Substring(2)}", out targetColor);
             requirements.Add(new Replace(levelData.requirements.hoverover[i][2], sourceColor, levelData.requirements.hoverover[i][0], targetColor));
         }
-        if (false && levelData.requirements.answerKey.regionStart[0] != -1)
+        if (levelData.requirements.answerKey.regionStart[0] != -1) // if this is breaking then JSON answerkey doesn't have cells listed 
         {
             AnswerKey ak = new AnswerKey(
                 new Vector2Int(levelData.requirements.answerKey.regionStart[0], levelData.requirements.answerKey.regionStart[1]),
@@ -245,8 +245,7 @@ public class LevelManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Period) && (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)))
         {
             AudioManager.inst.PlayRandomKeyPress();
-            // if (allDone) NextLevel(); // ideally show some indicator
-            NextLevel();
+            if (allDone) NextLevel(); // ideally show some indicator
         }
         // indicator cut for time, just boots you to next goal
     }
