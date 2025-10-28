@@ -102,7 +102,18 @@ for i in range(len(wb.sheetnames)):
     validRequirementTypes = ["hoverover","nocell","replace", "answerkey"]
 
     stop = False
-    requirementData = {"requirements": {}}
+    requirementData = {
+    "requirements": {
+        "hoverover": [],
+        "nocell": [],
+        "replace": [],
+        "answerkey": {
+                "regionStart": [-1, -1],
+                "regionEnd": [6, 7],
+                "answerData": []
+            }
+        }
+    }
     currentRequirementData = {}
 
     answer_key = False
@@ -126,7 +137,6 @@ for i in range(len(wb.sheetnames)):
                     raise FileNotFoundError(f"{requirementType} is not a Valid Requirement, on page {i+1}!")
                 else:
                     currentRequirementData = requirementType
-                    requirementData["requirements"][currentRequirementData] = []
                     print("Hello?")
                     if currentRequirementData == validRequirementTypes[3]:
                         answer_key = True
@@ -168,12 +178,10 @@ for i in range(len(wb.sheetnames)):
             #setGrid
             if not hasSetSize:
                 if '`' in str(row[1].value):
-                    answer_key_size = [0,0, max_row, max_column]
-                    
-                    requirementData["requirements"][currentRequirementData] = {
-                        "regionStart": [answer_key_size[0], answer_key_size[1]],
-                        "regionEnd": [answer_key_size[2], answer_key_size[3]]
-                    }
+                    answer_key_size = [1,1, max_row, max_column]
+
+                    requirementData["requirements"][currentRequirementData]["regionStart"] = [answer_key_size[0], answer_key_size[1]]
+                    requirementData["requirements"][currentRequirementData]["regionEnd"] =  [answer_key_size[2], answer_key_size[3]]
 
                     hasSetSize = True
                     continue
@@ -184,10 +192,8 @@ for i in range(len(wb.sheetnames)):
                     convertLetter2 = ord(row[3].value[0].lower()) - 96
                     answer_key_size = [row[2].value, convertLetter1, row[4].value, convertLetter2]
 
-                    requirementData["requirements"][currentRequirementData] = {
-                        "regionStart": [answer_key_size[0], answer_key_size[1]],
-                        "regionEnd": [answer_key_size[2], answer_key_size[3]]
-                    }
+                    requirementData["requirements"][currentRequirementData]["regionStart"] = [answer_key_size[0], answer_key_size[1]]
+                    requirementData["requirements"][currentRequirementData]["regionEnd"] =  [answer_key_size[2], answer_key_size[3]]
 
                     hasSetSize = True
                     continue
@@ -196,12 +202,12 @@ for i in range(len(wb.sheetnames)):
                 
         for row in sheet.iter_rows(min_row = answer_key_row + 1):
             #Keeping max 20 row
-            if row[0].row > answer_key_row + answer_key_size[3] - answer_key_size[1] + 1:
+            if row[0].row > answer_key_row + answer_key_size[2] - answer_key_size[0] + 1:
                 break
 
             for cell in row:
                   # Skip columns after column 20
-                if cell.column > answer_key_size[2] - answer_key_size[0] + 1:
+                if cell.column > answer_key_size[3] - answer_key_size[1] + 1:
                     continue
                 
                 fill_color = 'None'
@@ -213,8 +219,8 @@ for i in range(len(wb.sheetnames)):
                             fill_color = "FFFFFFFF"
 
                 data = {
-                    "row": cell.row,
-                    "column": cell.column,
+                    "row": cell.row - answer_key_row,
+                    "column": cell.column + answer_key_size[1] - 1,
                     "value": cell.value,
                     "file_color": fill_color
                     
@@ -223,13 +229,8 @@ for i in range(len(wb.sheetnames)):
                     if fill_color == "None":
                         raise FileNotFoundError(f"Theme Color ignored at row {cell.row}, Column {cell.column}")
                     answerData["cells"].append(data)
-        levels.append(cellData)
-    else:
-        requirementData["requirements"]["answerkey"] = {
-                        "regionStart": [-1, -1],
-                        "regionEnd": [6, 7]
-                    }
-
+        
+            requirementData["requirements"][currentRequirementData]["answerData"].append(answerData)
     levelsRequirements.append(requirementData)
 
 
