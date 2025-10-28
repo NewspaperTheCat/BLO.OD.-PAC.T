@@ -110,7 +110,7 @@ for i in range(len(wb.sheetnames)):
         "answerkey": {
                 "regionStart": [-1, -1],
                 "regionEnd": [6, 7],
-                "answerData": []
+                "cells": []
             }
         }
     }
@@ -230,7 +230,7 @@ for i in range(len(wb.sheetnames)):
                         raise FileNotFoundError(f"Theme Color ignored at row {cell.row}, Column {cell.column}")
                     answerData["cells"].append(data)
         
-            requirementData["requirements"][currentRequirementData]["answerData"].append(answerData)
+            requirementData["requirements"][currentRequirementData]["cells"] = answerData["cells"]
     levelsRequirements.append(requirementData)
 
 
