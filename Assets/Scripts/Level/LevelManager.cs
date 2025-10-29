@@ -89,7 +89,7 @@ public class LevelManager : MonoBehaviour
 
         Instance = this;
 
-        ColorUtility.TryParseHtmlString("#FFFFFFFF", out nullColor);
+        ColorUtility.TryParseHtmlString("#FFFFFF", out nullColor);
     }
 
     void OnDisable()
@@ -316,7 +316,7 @@ public class LevelManager : MonoBehaviour
     {
 
         Vector2Int dim = SpreadSheet.inst.GetSheetDimensions();
-        Debug.Log(akreq.regionStart + " to " + akreq.regionEnd);
+        //Debug.Log(akreq.regionStart + " to " + akreq.regionEnd);
 
         for (int r = akreq.regionStart.x; r <= akreq.regionEnd.x; r++)
         {
@@ -342,7 +342,7 @@ public class LevelManager : MonoBehaviour
                     if (!((key.content == null || key.content == real.GetContent())
                             && (key.bgColor == nullColor || key.bgColor == real.GetBgColor())))
                     {
-                        Debug.Log(start + " checking at " + pos + " did not have desired results " + key.content + " ... " + key.bgColor);
+                        Debug.Log(start + " checking at " + pos + " did not have desired results " + real.GetBgColor() + " ... " + key.bgColor);
                         // if not equal to any key
                         thisStartHasIt = false;
                         break;

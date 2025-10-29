@@ -223,8 +223,8 @@ public class Selector : MonoBehaviour
 
                 if (toCut) // replace value
                 {
-                    source.SetBgColor(Color.white);
-
+                    ColorUtility.TryParseHtmlString("#FFFFFF", out Color white);
+                    source.SetBgColor(white);
                     source.SetContent("");
                 }
             }
@@ -301,7 +301,8 @@ public class Selector : MonoBehaviour
                 }
                 else
                 {
-                    cell.SetBgColor(Color.white);
+                    ColorUtility.TryParseHtmlString("#FFFFFF", out Color white);
+                    cell.SetBgColor(white);
                     cell.SetContent("");
                 }
             }
@@ -330,7 +331,8 @@ public class Selector : MonoBehaviour
                 }
                 else
                 {
-                    cell.SetBgColor(Color.white);
+                    ColorUtility.TryParseHtmlString("#FFFFFF", out Color white);
+                    cell.SetBgColor(white);
                     cell.SetContent("");
                 }
             }
@@ -369,7 +371,8 @@ public class Selector : MonoBehaviour
                 }
                 else
                 {
-                    cell.SetBgColor(Color.white);
+                    ColorUtility.TryParseHtmlString("#FFFFFF", out Color white);
+                    cell.SetBgColor(white);
                     cell.SetContent("");
                 }
             }
@@ -398,7 +401,8 @@ public class Selector : MonoBehaviour
                 }
                 else
                 {
-                    cell.SetBgColor(Color.white);
+                    ColorUtility.TryParseHtmlString("#FFFFFF", out Color white);
+                    cell.SetBgColor(white);
                     cell.SetContent("");
                 }
             }

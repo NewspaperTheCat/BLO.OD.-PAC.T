@@ -216,7 +216,7 @@ for i in range(len(wb.sheetnames)):
                     if fg.type == 'rgb' and fg.rgb:
                         fill_color = fg.rgb.upper()
                         if fill_color == "00000000" or fill_color == "FF000000":
-                            fill_color = "FFFFFFFF"
+                            fill_color = "00000000"
 
                 data = {
                     "row": cell.row - answer_key_row,
