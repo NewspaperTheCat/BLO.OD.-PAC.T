@@ -11,11 +11,13 @@ public class LevelManager : MonoBehaviour
 {
 
     [SerializeField] private int level;
+    private bool levelComplete = false;
     public static LevelManager Instance { get; private set; }
 
     enum RequirementType { HoverOver, NoCell, Replace, AnswerKey };
 
     private Color nullColor;
+    [SerializeField] bool displayDebug;
 
     private abstract class Requirement
     {
@@ -25,22 +27,27 @@ public class LevelManager : MonoBehaviour
 
     private class HoverOver : Requirement
     {
-        public String targetContent;
-        public Color targetColor;
+        public KeyCell criteria;
 
-        public HoverOver(String targetContent, Color targetColor) { type = RequirementType.HoverOver; this.targetColor = targetColor; this.targetContent = targetContent; }
+        public HoverOver(String targetContent, Color targetColor) {
+            type = RequirementType.HoverOver;
+            criteria = new KeyCell(targetContent, targetColor);    
+        }
     }
 
     private class NoCell : Requirement
     {
-        public String targetContent;
-        public Color targetColor;
+        public KeyCell refuted;
 
-        public NoCell(String targetContent, Color targetColor) { type = RequirementType.NoCell; this.targetColor = targetColor; this.targetContent = targetContent; }
+        public NoCell(String targetContent, Color targetColor) {
+            type = RequirementType.NoCell;
+            refuted = new KeyCell(targetContent, targetColor);
+        }
     }
 
     private class Replace : Requirement
     {
+        // does not use key cell to make selector implementation easier
         public String sourceContent;
         public Color sourceColor;
         public String targetContent;
@@ -48,6 +55,8 @@ public class LevelManager : MonoBehaviour
 
         public Replace(String sourceContent, Color sourceColor, String targetContent, Color targetColor) {
             type = RequirementType.Replace;
+            if (sourceContent == "Null") sourceContent = null;
+            if (targetContent == "Null") targetContent = null;
             this.sourceContent = sourceContent; this.sourceColor = sourceColor;
             this.targetColor = targetColor; this.targetContent = targetContent;
         }
@@ -55,9 +64,21 @@ public class LevelManager : MonoBehaviour
 
     private class KeyCell {
         public Vector2Int rc; public String content; public Color bgColor;
+
+        public KeyCell(String content, Color bgColor)
+        {
+            if (content == "Null") content = null;
+            this.rc = new Vector2Int(-1, -1); this.content = content; this.bgColor = bgColor;
+        }
         public KeyCell(Vector2Int rc, String content, Color bgColor)
         {
+            if (content == "Null") content = null;
             this.rc = rc; this.content = content; this.bgColor = bgColor;
+        }
+
+        public bool Accepts(Cell real)
+        {
+            return (content == null || content == real.GetContent()) && (bgColor == Color.white || bgColor == real.GetBgColor());
         }
     }
         
@@ -100,11 +121,14 @@ public class LevelManager : MonoBehaviour
 
     void Start()
     {
-        setLevel();
+        if (level == 0) NewDay();
     }
 
     private void setLevel()
     {
+        // reset level complete
+        levelComplete = false;
+
         string path = Path.Combine(Application.dataPath, "Resources/Levels", $"brilliantLevel{level}.json");
 
         if (!File.Exists(path))
@@ -119,10 +143,11 @@ public class LevelManager : MonoBehaviour
         //Deserialize to class
         LevelJSON levelData = JsonConvert.DeserializeObject<LevelJSON>(json);
 
+        // patchwork explain objective
         Debug.Log(levelData.description);
 
         level = levelData.level;
-        //Debug.Log("Board size array: " + string.Join(", ", levelData.boardSize))
+        //if (displayDebug) Debug.Log("Board size array: " + string.Join(", ", levelData.boardSize))
 
         SpreadSheet.inst.CreateGrid(levelData.boardSize[0], levelData.boardSize[1]);
 
@@ -135,7 +160,7 @@ public class LevelManager : MonoBehaviour
 
             currentCell.SetBgColor(currentColor);
 
-            // Debug.Log(currentColor);
+            // if (displayDebug) Debug.Log(currentColor);
 
             if (levelData.cells[i].value != null)
             {
@@ -198,8 +223,8 @@ public class LevelManager : MonoBehaviour
 
     private void NextLevel()
     {
-        AudioManager.inst.PlayRandomSuccess();
         level++;
+        Debug.Log(level);
 
         if (level > levelAmountsPerDay[GameManager.inst.day])
         {
@@ -222,53 +247,53 @@ public class LevelManager : MonoBehaviour
             setLevel();
         }
 
-        // End Requirement Checks
-        bool allDone = true;
-        for (int i = 0; i < requirements.Count; i++)
+        if (!levelComplete)
         {
-            switch (requirements[i].type)
+            // End Requirement Checks
+            bool allDone = true;
+            for (int i = 0; i < requirements.Count; i++)
             {
-                case RequirementType.HoverOver:
-                    HoverOver horeq = (HoverOver)requirements[i];
-                    CheckHoverOver(horeq);
-                    break;
-                case RequirementType.NoCell:
-                    NoCell ncreq = (NoCell)requirements[i];
-                    CheckNoCell(ncreq);
-                    break;
-                case RequirementType.AnswerKey:
-                    AnswerKey akreq = (AnswerKey)requirements[i];
-                    CheckAnswerKey(akreq);
-                    break;
+                switch (requirements[i].type)
+                {
+                    case RequirementType.HoverOver:
+                        HoverOver horeq = (HoverOver)requirements[i];
+                        CheckHoverOver(horeq);
+                        break;
+                    case RequirementType.NoCell:
+                        NoCell ncreq = (NoCell)requirements[i];
+                        CheckNoCell(ncreq);
+                        break;
+                    case RequirementType.AnswerKey:
+                        AnswerKey akreq = (AnswerKey)requirements[i];
+                        CheckAnswerKey(akreq);
+                        break;
+                }
+                // if a singler missing requirement then exit
+                if (!requirements[i].done) { allDone = false; break; }
+                else
+                {
+                    if (displayDebug) Debug.Log($"Win, level: {level}");
+                }
             }
-            // if a singler missing requirement then exit
-            if (!requirements[i].done) { allDone = false; break; }
-            else
+            if (allDone) CompleteLevel();
+        }
+        else // if the level was complete, we don't need to check for answers, instead enable next level and that sequence
+        {
+            ProgressCompleteAnimation();
+
+            // allow the player to continue
+            if (Input.GetKeyDown(KeyCode.Period) && (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)))
             {
-                Debug.Log($"Win, level: {level}");
+                AudioManager.inst.PlayRandomKeyPress();
+                NextLevel();
             }
         }
-
-
-        // // allow the player to continue
-        if (Input.GetKeyDown(KeyCode.Period) && (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)))
-        {
-            AudioManager.inst.PlayRandomKeyPress();
-            if (allDone) NextLevel(); // ideally show some indicator
-        }
-        // indicator cut for time, just boots you to next goal
     }
 
     private void CheckHoverOver(HoverOver horeq) {
         Cell cur = Selector.inst.GetHover();
-        horeq.done = (horeq.targetContent == null || horeq.targetContent == cur.GetContent())
-                    &&
-                    (horeq.targetColor == nullColor || horeq.targetColor == cur.GetBgColor());
-        
-        if((horeq.targetContent == null || horeq.targetContent == cur.GetContent()) && (horeq.targetColor == nullColor || horeq.targetColor == cur.GetBgColor()))
-        {
-            Debug.Log("Hover Over");
-        }
+        horeq.done = horeq.criteria.Accepts(cur);
+        if (displayDebug && horeq.done) Debug.Log("Hover");
     }
 
     private void CheckNoCell(NoCell noCell) {
@@ -278,8 +303,7 @@ public class LevelManager : MonoBehaviour
             for (int c = 0; c < dim.y; c++)
             {
                 Cell cell = SpreadSheet.inst.GetCellAt(r, c);
-                if ((noCell.targetContent == "Null" || noCell.targetContent == cell.GetContent())
-                    && (noCell.targetColor == nullColor || noCell.targetColor == cell.GetBgColor()))
+                if (noCell.refuted.Accepts(cell))
                 {
                     // any infraction then break
                     noCell.done = false;
@@ -288,7 +312,7 @@ public class LevelManager : MonoBehaviour
             }
         }
         // if made it through all cells then success
-        Debug.Log("No cell");
+        if (displayDebug) Debug.Log("No cell");
         noCell.done = true;
     }
 
@@ -301,22 +325,22 @@ public class LevelManager : MonoBehaviour
             {
                 Replace rreq = (Replace)requirements[i];
                 if ((rreq.sourceColor == nullColor || rreq.sourceColor == sourceColor)
-                    && (rreq.sourceContent == "Null" || rreq.sourceContent == sourceContent)
+                    && (rreq.sourceContent == null || rreq.sourceContent == sourceContent)
                     && (rreq.targetColor == nullColor || rreq.targetColor == targetColor)
-                    && (rreq.targetContent == "Null" || rreq.targetContent == targetContent))
+                    && (rreq.targetContent == null || rreq.targetContent == targetContent))
                 {
-                    Debug.Log("Replace");
+                    if (displayDebug) Debug.Log("Replace");
                     rreq.done = true; // can only be set forwards
                 }
             }
         }
     }
-    
+
     private void CheckAnswerKey(AnswerKey akreq)
     {
 
         Vector2Int dim = SpreadSheet.inst.GetSheetDimensions();
-        //Debug.Log(akreq.regionStart + " to " + akreq.regionEnd);
+        //if (displayDebug) Debug.Log(akreq.regionStart + " to " + akreq.regionEnd);
 
         for (int r = akreq.regionStart.x; r <= akreq.regionEnd.x; r++)
         {
@@ -331,18 +355,17 @@ public class LevelManager : MonoBehaviour
                     Vector2Int pos = key.rc + start;
 
 
-                    if(!SpreadSheet.inst.InBounds(pos))
+                    if (!SpreadSheet.inst.InBounds(pos))
                     {
-                        Debug.Log(start + " lead to out of bound");
+                        if (displayDebug) Debug.Log(start + " lead to out of bound");
                         thisStartHasIt = false;
                         break;
                     }
 
                     Cell real = SpreadSheet.inst.GetCellAt(pos.x, pos.y);
-                    if (!((key.content == null || key.content == real.GetContent())
-                            && (key.bgColor == nullColor || key.bgColor == real.GetBgColor())))
+                    if (!key.Accepts(real))
                     {
-                        Debug.Log(start + " checking at " + pos + " did not have desired results " + real.GetBgColor() + " ... " + key.bgColor);
+                        if (displayDebug) Debug.Log(start + " checking at " + pos + " did not have desired results\nFound " + real.GetContent() + ", " + real.GetBgColor() + "\nExpected " + key.content + ", " + key.bgColor);
                         // if not equal to any key
                         thisStartHasIt = false;
                         break;
@@ -350,7 +373,7 @@ public class LevelManager : MonoBehaviour
                 }
                 if (thisStartHasIt)
                 {
-                    Debug.Log("Answer Key");
+                    if (displayDebug) Debug.Log("Answer Key");
                     akreq.done = true;
                     return;
                 }
@@ -359,6 +382,84 @@ public class LevelManager : MonoBehaviour
 
         // got to end and didn't find it
         akreq.done = false;
+    }
+
+    // complete animation parameters
+    float ringSpeed = 12.5f;
+    float ringThickness = 1.25f;
+    private float timeSinceComplete = 0;
+
+    private void CompleteLevel()
+    {
+        Debug.Log("Level Completed!");
+        AudioManager.inst.PlayRandomSuccess();
+        levelComplete = true;
+        timeSinceComplete = 0;
+    }
+    
+    // handles complete animation
+    public void ProgressCompleteAnimation()
+    {
+        timeSinceComplete += Time.deltaTime * ringSpeed;
+        float outer = timeSinceComplete / 2.0f;
+        float inner = outer - ringThickness;
+        Vector2Int dim = SpreadSheet.inst.GetSheetDimensions();
+        Vector2Int center = dim / 2 - Vector2Int.one;
+
+        if (inner > dim.magnitude + 2) return;
+
+        for (int r = 0; r < dim.x; r++)
+        {
+            for (int c = 0; c < dim.y; c++)
+            {
+                Cell selected = Selector.inst.GetHover();
+                Vector2Int sPos = new Vector2Int(selected.row - 1, selected.col - 1);
+
+                Vector2Int curPos = new Vector2Int(r, c);
+                float dis = Vector2Int.Distance(sPos, curPos);
+                Cell cur = SpreadSheet.inst.GetCellAt(curPos);
+
+                Debug.Log(curPos + " and dim " + (dim / 2));
+
+                if (outer > dis)
+                {
+                    if (dis > inner)
+                    {
+                        cur.SetContent("");
+                        cur.SetBgColor(Color.red);
+                    }
+                    else
+                    {
+                        // bad manual check for finish text
+                        if (curPos == center)
+                        {
+                            cur.SetContent("Level");
+                            cur.SetBgColor(Color.yellow);
+                        }
+                        else if (curPos == center + new Vector2Int(0, 1))
+                        {
+                            cur.SetContent("Complete");
+                            cur.SetBgColor(Color.yellow);
+                        }
+                        else if (curPos == center + new Vector2Int(1, 0))
+                        {
+                            cur.SetContent("Press");
+                            cur.SetBgColor(Color.yellow);
+                        }
+                        else if (curPos == center + Vector2Int.one)
+                        {
+                            cur.SetContent("CTRL >");
+                            cur.SetBgColor(Color.yellow);
+                        }
+                        else
+                        {
+                            cur.SetContent("");
+                            cur.SetBgColor(Color.white);
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
