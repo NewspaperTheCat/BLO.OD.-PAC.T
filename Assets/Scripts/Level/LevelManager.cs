@@ -245,7 +245,7 @@ public class LevelManager : MonoBehaviour
             if (!requirements[i].done) { allDone = false; break; }
             else
             {
-                Debug.Log($"Win, level: {level}");
+                //Debug.Log($"Win, level: {level}");
             }
         }
 
@@ -267,7 +267,7 @@ public class LevelManager : MonoBehaviour
         
         if((horeq.targetContent == null || horeq.targetContent == cur.GetContent()) && (horeq.targetColor == nullColor || horeq.targetColor == cur.GetBgColor()))
         {
-            Debug.Log("Hover Over");
+            //Debug.Log("Hover Over");
         }
     }
 
@@ -305,7 +305,7 @@ public class LevelManager : MonoBehaviour
                     && (rreq.targetColor == nullColor || rreq.targetColor == targetColor)
                     && (rreq.targetContent == "Null" || rreq.targetContent == targetContent))
                 {
-                    Debug.Log("Replace");
+                    //Debug.Log("Replace");
                     rreq.done = true; // can only be set forwards
                 }
             }
@@ -333,7 +333,7 @@ public class LevelManager : MonoBehaviour
 
                     if(!SpreadSheet.inst.InBounds(pos))
                     {
-                        Debug.Log(start + " lead to out of bound");
+                        //Debug.Log(start + " lead to out of bound");
                         thisStartHasIt = false;
                         break;
                     }
@@ -342,7 +342,7 @@ public class LevelManager : MonoBehaviour
                     if (!((key.content == null || key.content == real.GetContent())
                             && (key.bgColor == nullColor || key.bgColor == real.GetBgColor())))
                     {
-                        Debug.Log(start + " checking at " + pos + " did not have desired results " + real.GetBgColor() + " ... " + key.bgColor);
+                        //Debug.Log(start + " checking at " + pos + " did not have desired results " + real.GetBgColor() + " ... " + key.bgColor);
                         // if not equal to any key
                         thisStartHasIt = false;
                         break;
@@ -350,7 +350,7 @@ public class LevelManager : MonoBehaviour
                 }
                 if (thisStartHasIt)
                 {
-                    Debug.Log("Answer Key");
+                    //Debug.Log("Answer Key");
                     akreq.done = true;
                     return;
                 }
