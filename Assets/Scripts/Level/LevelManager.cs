@@ -15,7 +15,7 @@ public class LevelManager : MonoBehaviour
 
     enum RequirementType { HoverOver, NoCell, Replace, AnswerKey };
 
-    private Color nullColor = new Color(1, 1, 1); // barely not black
+    private Color nullColor;
 
     private abstract class Requirement
     {
@@ -88,6 +88,8 @@ public class LevelManager : MonoBehaviour
         }
 
         Instance = this;
+
+        ColorUtility.TryParseHtmlString("#FFFFFF", out nullColor);
     }
 
     void OnDisable()
@@ -98,7 +100,7 @@ public class LevelManager : MonoBehaviour
 
     void Start()
     {
-        NewDay();
+        setLevel();
     }
 
     private void setLevel()
@@ -116,6 +118,8 @@ public class LevelManager : MonoBehaviour
 
         //Deserialize to class
         LevelJSON levelData = JsonConvert.DeserializeObject<LevelJSON>(json);
+
+        Debug.Log(levelData.description);
 
         level = levelData.level;
         //Debug.Log("Board size array: " + string.Join(", ", levelData.boardSize))
@@ -164,8 +168,8 @@ public class LevelManager : MonoBehaviour
         if (levelData.requirements.answerKey.regionStart[0] != -1) // if this is breaking then JSON answerkey doesn't have cells listed 
         {
             AnswerKey ak = new AnswerKey(
-                new Vector2Int(levelData.requirements.answerKey.regionStart[0], levelData.requirements.answerKey.regionStart[1]),
-                new Vector2Int(levelData.requirements.answerKey.regionEnd[0], levelData.requirements.answerKey.regionEnd[1]));
+                new Vector2Int(levelData.requirements.answerKey.regionStart[0] - 1, levelData.requirements.answerKey.regionStart[1] - 1),
+                new Vector2Int(levelData.requirements.answerKey.regionEnd[0] - 1, levelData.requirements.answerKey.regionEnd[1] - 1));
 
             // add all cells
             for (int i = 0; i < levelData.requirements.answerKey.cells.Length; i++)
@@ -174,8 +178,9 @@ public class LevelManager : MonoBehaviour
                 Color targetColor = nullColor;
                 if (cj.file_color != "Null")
                     ColorUtility.TryParseHtmlString($"#{cj.file_color.Substring(2)}", out targetColor);
-                ak.cells.Add(new KeyCell(new Vector2Int(cj.row, cj.column), cj.value, targetColor));
+                ak.cells.Add(new KeyCell(new Vector2Int(cj.row - 1, cj.column -1), cj.value, targetColor));
             }
+            requirements.Add(ak);
         }
     }
 
@@ -196,7 +201,7 @@ public class LevelManager : MonoBehaviour
         AudioManager.inst.PlayRandomSuccess();
         level++;
 
-        if (level > levelAmountsPerDay[GameManager.inst.day - 1])
+        if (level > levelAmountsPerDay[GameManager.inst.day])
         {
             GameManager.inst.DayComplete();
         }
@@ -238,6 +243,10 @@ public class LevelManager : MonoBehaviour
             }
             // if a singler missing requirement then exit
             if (!requirements[i].done) { allDone = false; break; }
+            else
+            {
+                Debug.Log($"Win, level: {level}");
+            }
         }
 
 
@@ -255,6 +264,11 @@ public class LevelManager : MonoBehaviour
         horeq.done = (horeq.targetContent == null || horeq.targetContent == cur.GetContent())
                     &&
                     (horeq.targetColor == nullColor || horeq.targetColor == cur.GetBgColor());
+        
+        if((horeq.targetContent == null || horeq.targetContent == cur.GetContent()) && (horeq.targetColor == nullColor || horeq.targetColor == cur.GetBgColor()))
+        {
+            Debug.Log("Hover Over");
+        }
     }
 
     private void CheckNoCell(NoCell noCell) {
@@ -274,6 +288,7 @@ public class LevelManager : MonoBehaviour
             }
         }
         // if made it through all cells then success
+        Debug.Log("No cell");
         noCell.done = true;
     }
 
@@ -290,6 +305,7 @@ public class LevelManager : MonoBehaviour
                     && (rreq.targetColor == nullColor || rreq.targetColor == targetColor)
                     && (rreq.targetContent == "Null" || rreq.targetContent == targetContent))
                 {
+                    Debug.Log("Replace");
                     rreq.done = true; // can only be set forwards
                 }
             }
@@ -298,6 +314,10 @@ public class LevelManager : MonoBehaviour
     
     private void CheckAnswerKey(AnswerKey akreq)
     {
+
+        Vector2Int dim = SpreadSheet.inst.GetSheetDimensions();
+        //Debug.Log(akreq.regionStart + " to " + akreq.regionEnd);
+
         for (int r = akreq.regionStart.x; r <= akreq.regionEnd.x; r++)
         {
             for (int c = akreq.regionStart.y; c <= akreq.regionEnd.y; c++)
@@ -308,10 +328,21 @@ public class LevelManager : MonoBehaviour
                 for (int i = 0; i < akreq.cells.Count; i++)
                 {
                     KeyCell key = akreq.cells[i];
-                    Cell real = SpreadSheet.inst.GetCellAt(key.rc + start);
-                    if (!((key.content == "Null" || key.content == real.GetContent())
+                    Vector2Int pos = key.rc + start;
+
+
+                    if(!SpreadSheet.inst.InBounds(pos))
+                    {
+                        Debug.Log(start + " lead to out of bound");
+                        thisStartHasIt = false;
+                        break;
+                    }
+
+                    Cell real = SpreadSheet.inst.GetCellAt(pos.x, pos.y);
+                    if (!((key.content == null || key.content == real.GetContent())
                             && (key.bgColor == nullColor || key.bgColor == real.GetBgColor())))
                     {
+                        Debug.Log(start + " checking at " + pos + " did not have desired results " + real.GetBgColor() + " ... " + key.bgColor);
                         // if not equal to any key
                         thisStartHasIt = false;
                         break;
@@ -319,6 +350,7 @@ public class LevelManager : MonoBehaviour
                 }
                 if (thisStartHasIt)
                 {
+                    Debug.Log("Answer Key");
                     akreq.done = true;
                     return;
                 }

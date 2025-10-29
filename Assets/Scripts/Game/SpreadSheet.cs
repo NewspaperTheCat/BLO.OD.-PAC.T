@@ -86,7 +86,7 @@ public class SpreadSheet : MonoBehaviour
         sheet[0, 0].gameObject.SetActive(false);
         // assign row titles
         for (int r = 1; r < ROWS + 1; r++) {
-            Debug.Log(r + ", " + ROWS);
+            //Debug.Log(r + ", " + ROWS);
             sheet[r, 0].SetBgColor(new Color(225, 225, 235));
             sheet[r, 0].SetContent(r + "");
         }

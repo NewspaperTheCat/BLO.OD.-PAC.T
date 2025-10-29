@@ -223,8 +223,8 @@ public class Selector : MonoBehaviour
 
                 if (toCut) // replace value
                 {
-                    source.SetBgColor(Color.white);
-
+                    ColorUtility.TryParseHtmlString("#FFFFFF", out Color white);
+                    source.SetBgColor(white);
                     source.SetContent("");
                 }
             }
@@ -260,7 +260,7 @@ public class Selector : MonoBehaviour
         {
             DisableCopy();
         }
-        Maxwell.inst.summonMaxwell(4);
+        //Maxwell.inst.summonMaxwell(4);
     }
 
     private void SelectAll()
@@ -301,12 +301,13 @@ public class Selector : MonoBehaviour
                 }
                 else
                 {
-                    cell.SetBgColor(Color.white);
+                    ColorUtility.TryParseHtmlString("#FFFFFF", out Color white);
+                    cell.SetBgColor(white);
                     cell.SetContent("");
                 }
             }
         }
-        Maxwell.inst.summonMaxwell(4);
+        //Maxwell.inst.summonMaxwell(4);
     }
 
     private void InsertColumn()
@@ -330,12 +331,13 @@ public class Selector : MonoBehaviour
                 }
                 else
                 {
-                    cell.SetBgColor(Color.white);
+                    ColorUtility.TryParseHtmlString("#FFFFFF", out Color white);
+                    cell.SetBgColor(white);
                     cell.SetContent("");
                 }
             }
         }
-        Maxwell.inst.summonMaxwell(4);
+        //Maxwell.inst.summonMaxwell(4);
     }
 
     private void HighlightRow()
@@ -369,12 +371,13 @@ public class Selector : MonoBehaviour
                 }
                 else
                 {
-                    cell.SetBgColor(Color.white);
+                    ColorUtility.TryParseHtmlString("#FFFFFF", out Color white);
+                    cell.SetBgColor(white);
                     cell.SetContent("");
                 }
             }
         }
-        Maxwell.inst.summonMaxwell(4);
+        //Maxwell.inst.summonMaxwell(4);
     }
 
     private void InsertRow()
@@ -398,11 +401,12 @@ public class Selector : MonoBehaviour
                 }
                 else
                 {
-                    cell.SetBgColor(Color.white);
+                    ColorUtility.TryParseHtmlString("#FFFFFF", out Color white);
+                    cell.SetBgColor(white);
                     cell.SetContent("");
                 }
             }
         }
-        Maxwell.inst.summonMaxwell( 4);
+        //Maxwell.inst.summonMaxwell( 4);
     }
 }

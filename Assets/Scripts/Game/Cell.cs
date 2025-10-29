@@ -33,7 +33,8 @@ public class Cell : MonoBehaviour
         this.row = row;
         this.col = col;
         SetContent("");
-        SetBgColor(Color.white);
+        ColorUtility.TryParseHtmlString("#FFFFFF", out Color white);
+        SetBgColor(white);
     }
 
     // specified constructor

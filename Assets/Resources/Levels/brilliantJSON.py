@@ -110,7 +110,7 @@ for i in range(len(wb.sheetnames)):
         "answerkey": {
                 "regionStart": [-1, -1],
                 "regionEnd": [6, 7],
-                "answerData": []
+                "cells": []
             }
         }
     }
@@ -216,7 +216,7 @@ for i in range(len(wb.sheetnames)):
                     if fg.type == 'rgb' and fg.rgb:
                         fill_color = fg.rgb.upper()
                         if fill_color == "00000000" or fill_color == "FF000000":
-                            fill_color = "FFFFFFFF"
+                            fill_color = "00000000"
 
                 data = {
                     "row": cell.row - answer_key_row,
@@ -230,7 +230,7 @@ for i in range(len(wb.sheetnames)):
                         raise FileNotFoundError(f"Theme Color ignored at row {cell.row}, Column {cell.column}")
                     answerData["cells"].append(data)
         
-            requirementData["requirements"][currentRequirementData]["answerData"].append(answerData)
+            requirementData["requirements"][currentRequirementData]["cells"] = answerData["cells"]
     levelsRequirements.append(requirementData)
 
 
