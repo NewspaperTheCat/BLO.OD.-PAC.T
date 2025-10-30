@@ -219,7 +219,7 @@ GameObject:
   - component: {fileID: 355939784}
   - component: {fileID: 355939783}
   - component: {fileID: 355939782}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: ClockOut
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -335,7 +335,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 169447741, guid: 27d209bf5100eae439fb620a1689865f, type: 3}
+  m_Sprite: {fileID: 1570107121, guid: d927000d4e2edac4194a959a73afcc04, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -410,7 +410,7 @@ GameObject:
   - component: {fileID: 478686901}
   - component: {fileID: 478686900}
   - component: {fileID: 478686899}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: ClockIn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -526,7 +526,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1457536778, guid: 8f8a3803221e5f64bba875bd9bf45395, type: 3}
+  m_Sprite: {fileID: 1570107121, guid: d927000d4e2edac4194a959a73afcc04, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -560,7 +560,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &515898500
 Transform:
   m_ObjectHideFlags: 0
@@ -606,7 +606,7 @@ GameObject:
   - component: {fileID: 553167634}
   - component: {fileID: 553167633}
   - component: {fileID: 553167632}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Employees
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -722,7 +722,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1379835037, guid: 4074cb839802b9944b873a8727fbfd76, type: 3}
+  m_Sprite: {fileID: 339983293, guid: c09e126124c67fa4f8a9a0b47777420e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -819,7 +819,7 @@ GameObject:
   - component: {fileID: 1013597327}
   - component: {fileID: 1013597329}
   - component: {fileID: 1013597328}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1163,8 +1163,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1231588680}
   - component: {fileID: 1231588682}
-  - component: {fileID: 1231588681}
-  m_Layer: 0
+  - component: {fileID: 1231588683}
+  m_Layer: 6
   m_Name: ScreenGlow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1186,7 +1186,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1433352413}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1231588681
+--- !u!114 &1231588682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1231588679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: c25d1fbcab8e4454ea3fa0abbe8ca013, type: 2}
+--- !u!65 &1231588683
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1203,27 +1220,10 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
-  m_Size: {x: 3.9203696, y: 7.4609447, z: 1}
-  m_Center: {x: 4.539815, y: 0.6190803, z: 0}
---- !u!114 &1231588682
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1231588679}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IsGlobal: 0
-  priority: 0
-  blendDistance: 0
-  weight: 1
-  sharedProfile: {fileID: 11400000, guid: 2dccdac288873584c958f579e20e6f3e, type: 2}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1423872917
 GameObject:
   m_ObjectHideFlags: 0
@@ -1236,8 +1236,8 @@ GameObject:
   - component: {fileID: 1423872920}
   - component: {fileID: 1423872919}
   - component: {fileID: 1423872918}
-  m_Layer: 5
-  m_Name: Canvas
+  m_Layer: 6
+  m_Name: Screen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1444,7 +1444,7 @@ MonoBehaviour:
   m_RendererIndex: -1
   m_VolumeLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 65
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 1
