@@ -24,6 +24,8 @@ public class Maxwell : MonoBehaviour
     List<String> changeSolution = new List<String>();
     [SerializeField] TextAsset solution;
 
+    [SerializeField] UnityEngine.Rendering.VolumeProfile officeAmbience; // makes the world increasingly more red as days progress
+
     // Singleton Design Pattern (to a degree)
     public static Maxwell inst;
     void OnEnable()
@@ -54,7 +56,11 @@ public class Maxwell : MonoBehaviour
         readText(flavor, "f");
          readText(color, "c");
          readText(text, "t");
-         readText(solution, "s");
+        readText(solution, "s");
+
+        UnityEngine.Rendering.Universal.Vignette vignette;
+        officeAmbience.TryGet(out vignette);
+        vignette.intensity.Override(GameManager.inst.day * .1f + .1f);
     }
 
     // Update is called once per frame
