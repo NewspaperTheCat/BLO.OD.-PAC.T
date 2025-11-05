@@ -12,7 +12,7 @@ public class Cell : MonoBehaviour
 {
 
     // Static to be one universal value
-    static Color highlight = new Color(0, 200, 255);
+    static Color highlight = new Color(.3f, .6f, 1);
     bool isHighlighted;
 
     // Lazy game jam coding practice: public parameters
@@ -57,7 +57,7 @@ public class Cell : MonoBehaviour
         }
     }
     public Color GetBgColor() { return bgColor; }
-    public void SetBgColor(Color bgColor) { this.bgColor = bgColor; if (isHighlighted) background.color = bgColor * highlight; else background.color = bgColor;
+    public void SetBgColor(Color bgColor) { this.bgColor = bgColor; if (isHighlighted) background.color = Color.Lerp(bgColor, highlight, .6f); else background.color = bgColor;
         if (!SpreadSheet.inst.IsGridInitialized()) return; // exit if grid not initialized
         
 

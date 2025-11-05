@@ -11,16 +11,16 @@ public class ButtonBehavior : MonoBehaviour, IPointerExitHandler, IPointerEnterH
 
     void Start()
     {
-        transform.GetComponent<Image>().sprite = sprite;
+        transform.GetComponent<Image>().sprite = highlightSprite;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        transform.GetComponent<Image>().sprite = highlightSprite;
+        transform.GetComponent<Image>().sprite = sprite;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        transform.GetComponent<Image>().sprite = sprite;
+        transform.GetComponent<Image>().sprite = highlightSprite;
     }
 }
