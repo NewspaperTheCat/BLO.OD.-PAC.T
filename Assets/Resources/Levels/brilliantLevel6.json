@@ -60,42 +60,6 @@
   ],
   "cells": [
     {
-      "row": 1,
-      "column": 1,
-      "value": null,
-      "file_color": "FFFFFFFF"
-    },
-    {
-      "row": 1,
-      "column": 2,
-      "value": null,
-      "file_color": "FFFFFFFF"
-    },
-    {
-      "row": 1,
-      "column": 3,
-      "value": null,
-      "file_color": "FFFFFFFF"
-    },
-    {
-      "row": 1,
-      "column": 4,
-      "value": null,
-      "file_color": "FFFFFFFF"
-    },
-    {
-      "row": 1,
-      "column": 5,
-      "value": null,
-      "file_color": "FFFFFFFF"
-    },
-    {
-      "row": 1,
-      "column": 6,
-      "value": null,
-      "file_color": "FFFFFFFF"
-    },
-    {
       "row": 2,
       "column": 1,
       "value": "Red",
@@ -129,12 +93,6 @@
       "row": 2,
       "column": 6,
       "value": "Purple",
-      "file_color": "FFFFFFFF"
-    },
-    {
-      "row": 3,
-      "column": 1,
-      "value": null,
       "file_color": "FFFFFFFF"
     }
   ]

@@ -65,7 +65,10 @@ for i in range(len(wb.sheetnames)):
                 if fg.type == 'rgb' and fg.rgb:
                     fill_color = fg.rgb.upper()
                     if fill_color == "00000000" or fill_color == "FF000000":
-                        fill_color = "FFFFFFFF"
+                        if cell.value != None:
+                            fill_color = "FFFFFFFF"
+                        else:
+                            fill_color = "00000000"
 
             data = {
                 "row": cell.row,
