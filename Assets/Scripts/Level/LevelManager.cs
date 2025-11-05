@@ -187,11 +187,13 @@ public class LevelManager : MonoBehaviour
         }
         for (int i = 0; i < levelData.requirements.replace.Length; i++)
         {
+            Debug.Log(levelData.requirements.replace[i].Length);
+            for (int ah = 0; ah < levelData.requirements.replace[i].Length; ah++) { Debug.Log(levelData.requirements.replace[i][ah]); }
             Color sourceColor = nullColor;
-            if (levelData.requirements.replace[i][1] != "Null")
+            if (levelData.requirements.replace[i][3] != "Null")
                 ColorUtility.TryParseHtmlString($"#{levelData.requirements.replace[i][3].Substring(2)}", out sourceColor);
             Color targetColor = nullColor;
-            if (levelData.requirements.replace[i][3] != "Null")
+            if (levelData.requirements.replace[i][1] != "Null")
                 ColorUtility.TryParseHtmlString($"#{levelData.requirements.replace[i][1].Substring(2)}", out targetColor);
             requirements.Add(new Replace(levelData.requirements.hoverover[i][2], sourceColor, levelData.requirements.hoverover[i][0], targetColor));
         }
