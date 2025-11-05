@@ -16,9 +16,7 @@ public class TransitionController : MonoBehaviour
 
     public void NextDay()
     {
-        GameManager.inst.day++;
-
-        if (GameManager.inst.day > 5)
+        if (GameManager.inst.day >= 5)
         {
             SceneNavigator.inst.ToEmployees();
             GameManager.inst.day = 0;

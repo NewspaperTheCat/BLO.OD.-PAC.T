@@ -6,6 +6,7 @@ using ModelLevelJSON;
 using System.IO;
 using Newtonsoft.Json;
 using System;
+using TMPro;
 
 public class LevelManager : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class LevelManager : MonoBehaviour
     enum RequirementType { HoverOver, NoCell, Replace, AnswerKey };
 
     private Color nullColor;
+    [SerializeField] TMP_Text instructionalText;
     [SerializeField] bool displayDebug;
 
     private abstract class Requirement
@@ -129,22 +131,25 @@ public class LevelManager : MonoBehaviour
         // reset level complete
         levelComplete = false;
 
-        string path = Path.Combine(Application.dataPath, "Resources/Levels", $"brilliantLevel{level}.json");
+        string path = $"Levels/brilliantLevel{level}";
 
-        if (!File.Exists(path))
+        if (!File.Exists(Application.dataPath + "/Resources/" + path + ".json"))
         {
             Debug.LogError("Level JSON File not found at: " + path);
             return;
         }
 
         //Read JSON
-        string json = File.ReadAllText(path);
+        Debug.Log(path);
+        string json = Resources.Load<TextAsset>(path).text;
 
         //Deserialize to class
         LevelJSON levelData = JsonConvert.DeserializeObject<LevelJSON>(json);
 
         // patchwork explain objective
         Debug.Log(levelData.description);
+        // less patchwork explanation
+        instructionalText.text = levelData.description;
 
         level = levelData.level;
         //if (displayDebug) Debug.Log("Board size array: " + string.Join(", ", levelData.boardSize))
@@ -386,7 +391,7 @@ public class LevelManager : MonoBehaviour
 
     // complete animation parameters
     float ringSpeed = 12.5f;
-    float ringThickness = 1.25f;
+    float ringThickness = 4f;
     private float timeSinceComplete = 0;
 
     private void CompleteLevel()
@@ -419,44 +424,48 @@ public class LevelManager : MonoBehaviour
                 float dis = Vector2Int.Distance(sPos, curPos);
                 Cell cur = SpreadSheet.inst.GetCellAt(curPos);
 
-                Debug.Log(curPos + " and dim " + (dim / 2));
-
                 if (outer > dis)
                 {
-                    if (dis > inner)
+                    Color thisBase;
+                    // bad manual check for finish text
+                    if (curPos == center)
                     {
-                        cur.SetContent("");
-                        cur.SetBgColor(Color.red);
+                        cur.SetContent("Level");
+                        thisBase = Color.yellow;
+                    }
+                    else if (curPos == center + new Vector2Int(0, 1))
+                    {
+                        cur.SetContent("Complete");
+                        thisBase = Color.yellow;
+                    }
+                    else if (curPos == center + new Vector2Int(1, 0))
+                    {
+                        cur.SetContent("Press");
+                        thisBase = Color.yellow;
+                    }
+                    else if (curPos == center + Vector2Int.one)
+                    {
+                        cur.SetContent("CTRL >");
+                        thisBase = Color.yellow;
                     }
                     else
                     {
-                        // bad manual check for finish text
-                        if (curPos == center)
-                        {
-                            cur.SetContent("Level");
-                            cur.SetBgColor(Color.yellow);
-                        }
-                        else if (curPos == center + new Vector2Int(0, 1))
-                        {
-                            cur.SetContent("Complete");
-                            cur.SetBgColor(Color.yellow);
-                        }
-                        else if (curPos == center + new Vector2Int(1, 0))
-                        {
-                            cur.SetContent("Press");
-                            cur.SetBgColor(Color.yellow);
-                        }
-                        else if (curPos == center + Vector2Int.one)
-                        {
-                            cur.SetContent("CTRL >");
-                            cur.SetBgColor(Color.yellow);
-                        }
-                        else
-                        {
-                            cur.SetContent("");
-                            cur.SetBgColor(Color.white);
-                        }
+                        cur.SetContent("");
+                        thisBase = Color.white;
                     }
+
+
+
+                    if (dis > inner)
+                    {
+                        float t = (dis - inner) / (outer - inner);
+                        cur.SetBgColor(Color.Lerp(thisBase, Color.red, t));
+                    }
+                    else
+                    {
+                        cur.SetBgColor(thisBase);
+                    }
+                    
                 }
             }
         }
