@@ -195,7 +195,7 @@ public class LevelManager : MonoBehaviour
             Color targetColor = nullColor;
             if (levelData.requirements.replace[i][1] != "Null")
                 ColorUtility.TryParseHtmlString($"#{levelData.requirements.replace[i][1].Substring(2)}", out targetColor);
-            requirements.Add(new Replace(levelData.requirements.hoverover[i][2], sourceColor, levelData.requirements.hoverover[i][0], targetColor));
+            requirements.Add(new Replace(levelData.requirements.replace[i][2], sourceColor, levelData.requirements.replace[i][0], targetColor));
         }
         if (levelData.requirements.answerKey.regionStart[0] != -1) // if this is breaking then JSON answerkey doesn't have cells listed 
         {
