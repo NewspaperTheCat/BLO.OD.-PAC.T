@@ -10,12 +10,12 @@
     ],
     "nocell": [],
     "replace": [
-        [
-            "LOCK",
-            "Null",
-            "KEY",
-            "Null"
-        ]
+      [
+        "LOCK",
+        "Null",
+        "KEY",
+        "Null"
+      ]
     ],
     "answerkey": {
       "regionStart": [

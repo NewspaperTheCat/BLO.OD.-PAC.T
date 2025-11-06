@@ -27,7 +27,7 @@ levelsRequirements = []
 def wordAndColorSet(cel, col, cr):
 
     this_cell = []
-
+    
     if cel.value != None:
         this_cell.append(cel.value)
     else:
@@ -37,6 +37,22 @@ def wordAndColorSet(cel, col, cr):
         this_cell.append(col)
     else:
         this_cell.append("Null")
+
+    cr.append(this_cell)
+
+def wordAndColorSetTwo(lcel, lcol, cr):
+
+    this_cell = []
+    for i in range(len(lcel)):
+        if lcel[i].value != None:
+            this_cell.append(lcel[i].value)
+        else:
+            this_cell.append("Null")
+
+        if lcol[i] != '00000000' and lcol[i] != "None":
+            this_cell.append(lcol[i])
+        else:
+            this_cell.append("Null")
 
     cr.append(this_cell)
 
@@ -121,6 +137,11 @@ for i in range(len(wb.sheetnames)):
 
     answer_key = False
     answer_key_row = -1
+    amountOfReplace = 0
+
+    #Last Cell check right now only for replace function
+    lastCell = None
+    lastCellFC = "None"
 
     ##Read Key Requirements
     for row in sheet.iter_rows(min_row =  max_row + 3):
@@ -160,13 +181,20 @@ for i in range(len(wb.sheetnames)):
                     raise FileNotFoundError(f"{requirementType}, should not have a null value and no color on row: {cell.row}, cell: {cell.column}, on page {i+1}")
 
                 if '`' in str(cell.value):
+                    if amountOfReplace % 2 != 0:
+                        raise FileNotFoundError(f"Wrong Amount of Requirements! There is a Requirement that does not have two conditions, on page {i+1}")
                     break
                 if requirementType == validRequirementTypes[0]:
                     wordAndColorSet(cell, fill_color, requirementData["requirements"][currentRequirementData])
                 if requirementType == validRequirementTypes[1]:
                     wordAndColorSet(cell, fill_color, requirementData["requirements"][currentRequirementData])
                 if requirementType == validRequirementTypes[2]:
-                    wordAndColorSet(cell, fill_color, requirementData["requirements"][currentRequirementData])
+                    amountOfReplace += 1
+                    if amountOfReplace % 2 == 0:
+                        wordAndColorSetTwo([lastCell, cell], [lastCellFC, fill_color], requirementData["requirements"][currentRequirementData])
+                    lastCell = cell
+                    lastCellFC = fill_color
+
         if stop:
             break
 
