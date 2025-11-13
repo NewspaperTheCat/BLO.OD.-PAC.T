@@ -133,12 +133,15 @@ public class LevelManager : MonoBehaviour
 
         string path = $"Levels/brilliantLevel{level}";
 
-        if (!File.Exists(Application.dataPath + "/Resources/" + path + ".json"))
-        {
-            Debug.LogError("Level JSON File not found at: " + path);
-            return;
-        }
-
+        #if UNITY_EDITOR
+            // assuming when we build we have the level files working
+            if (!File.Exists(Application.dataPath + "/Resources/" + path + ".json"))
+            {
+                Debug.LogError("Level JSON File not found at: " + path);
+                return;
+            }
+        #endif
+        
         //Read JSON
         Debug.Log(path);
         string json = Resources.Load<TextAsset>(path).text;
