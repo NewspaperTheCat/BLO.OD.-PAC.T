@@ -227,7 +227,10 @@ public class LevelManager : MonoBehaviour
     // called externally
     private void NewDay()
     {
-        level = 1;
+        if (GameManager.inst.day == 0)
+            level = 1;
+        else
+            level = levelAmountsPerDay[GameManager.inst.day - 1] + 1;
         setLevel();
     }
 

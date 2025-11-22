@@ -260,7 +260,7 @@ public class Selector : MonoBehaviour
         {
             DisableCopy();
         }
-        //Maxwell.inst.summonMaxwell(4);
+        Maxwell.inst.summonMaxwell(4);
     }
 
     private void SelectAll()
@@ -307,7 +307,7 @@ public class Selector : MonoBehaviour
                 }
             }
         }
-        //Maxwell.inst.summonMaxwell(4);
+        Maxwell.inst.summonMaxwell(4);
     }
 
     private void InsertColumn()
@@ -337,7 +337,7 @@ public class Selector : MonoBehaviour
                 }
             }
         }
-        //Maxwell.inst.summonMaxwell(4);
+        Maxwell.inst.summonMaxwell(4);
     }
 
     private void HighlightRow()
@@ -377,7 +377,7 @@ public class Selector : MonoBehaviour
                 }
             }
         }
-        //Maxwell.inst.summonMaxwell(4);
+        Maxwell.inst.summonMaxwell(4);
     }
 
     private void InsertRow()
@@ -407,6 +407,6 @@ public class Selector : MonoBehaviour
                 }
             }
         }
-        //Maxwell.inst.summonMaxwell( 4);
+        Maxwell.inst.summonMaxwell( 4);
     }
 }
