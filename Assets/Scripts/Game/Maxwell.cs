@@ -60,7 +60,7 @@ public class Maxwell : MonoBehaviour
 
         UnityEngine.Rendering.Universal.Vignette vignette;
         officeAmbience.TryGet(out vignette);
-        vignette.intensity.Override(GameManager.inst.day * .1f + .1f);
+        vignette.intensity.Override(GameManager.inst.day * .075f + .1f);
     }
 
     // Update is called once per frame
